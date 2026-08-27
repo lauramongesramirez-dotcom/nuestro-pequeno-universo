@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nuestro pequeño universo 🌌</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:Georgia, serif;
+    color:white;
+    background:#030314;
+}
+
+/* GALAXIA */
+
+.galaxy{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at 50% 50%,
+    #28215c 0%,
+    #15143d 30%,
+    #080820 65%,
+    #02020c 100%);
+}
+
+/* NEBULOSAS */
+
+.nebula{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(70px);
+    opacity:.25;
+}
+
+.nebula.one{
+    width:500px;
+    height:500px;
+    left:-200px;
+    top:100px;
+    background:#746cff;
+}
+
+.nebula.two{
+    width:450px;
+    height:450px;
+    right:-180px;
+    bottom:-100px;
+    background:#d46bc4;
+}
+
+/* ESTRELLAS */
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+
+    from{
+        opacity:.2;
+        transform:scale(.7);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.4);
+    }
+}
+
+/* TEXTO CENTRAL */
+
+.center{
+    position:absolute;
+    z-index:3;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    text-align:center;
+
+    width:90%;
+}
+
+.center h1{
+
+    margin:0;
+
+    font-size:clamp(38px,8vw,72px);
+
+    font-weight:normal;
+
+    text-shadow:
+    0 0 15px #ffffff,
+    0 0 35px #9186ff;
+}
+
+.center p{
+
+    margin-top:15px;
+
+    font-size:clamp(14px,3vw,20px);
+
+    opacity:.75;
+}
+
+/* ORBITAS */
+
+.orbit{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:50%;
+}
+
+.orbit.one{
+
+    width:min(80vw,750px);
+    height:min(80vw,750px);
+}
+
+.orbit.two{
+
+    width:min(55vw,520px);
+    height:min(55vw,520px);
+}
+
+/* BOTONES */
+
+.planet{
+
+    position:absolute;
+
+    z-index:5;
+
+    width:65px;
+    height:65px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.5);
+
+    background:
+    radial-gradient(
+    circle at 30% 25%,
+    white,
+    #d9d4ff 15%,
+    #8979ed 45%,
+    #29224e 80%
+    );
+
+    color:white;
+
+    font-size:25px;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 0 20px rgba(150,130,255,.8);
+
+    transition:.25s;
+}
+
+.planet:hover{
+
+    transform:scale(1.2);
+
+}
+
+.label{
+
+    position:absolute;
+
+    top:72px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    white-space:nowrap;
+
+    font-size:11px;
+
+    opacity:.8;
+
+    text-shadow:0 2px 5px black;
+}
+
+/* POSICIONES */
+
+.p1{
+    left:8%;
+    top:27%;
+}
+
+.p2{
+    left:26%;
+    top:10%;
+}
+
+.p3{
+    right:22%;
+    top:14%;
+}
+
+.p4{
+    right:6%;
+    top:43%;
+}
+
+.p5{
+    right:13%;
+    bottom:13%;
+}
+
+.p6{
+    left:32%;
+    bottom:8%;
+}
+
+.p7{
+    left:7%;
+    bottom:20%;
+}
+
+.p8{
+    left:46%;
+    top:14%;
+}
+
+/* MENSAJE */
+
+.hint{
+
+    position:absolute;
+
+    z-index:4;
+
+    bottom:15px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-size:12px;
+
+    opacity:.5;
+
+    text-align:center;
+
+}
+
+/* MODAL */
+
+.modal{
+
+    display:none;
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:20;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,10,.78);
+
+    backdrop-filter:blur(8px);
+}
+
+.card{
+
+    width:min(650px,94vw);
+
+    max-height:85vh;
+
+    overflow:auto;
+
+    padding:32px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    background:
+    linear-gradient(
+    145deg,
+    rgba(35,30,85,.97),
+    rgba(7,7,25,.97)
+    );
+
+    box-shadow:
+    0 20px 80px rgba(0,0,0,.7);
+
+    animation:appear .3s ease;
+}
+
+@keyframes appear{
+
+    from{
+        opacity:0;
+        transform:scale(.85);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.card .emoji{
+
+    font-size:48px;
+
+}
+
+.card h2{
+
+    font-size:30px;
+
+    font-weight:normal;
+
+    margin:10px 0 20px;
+}
+
+.card p{
+
+    font-size:17px;
+
+    line-height:1.75;
+
+    white-space:pre-line;
+
+    color:#eee;
+}
+
+.close{
+
+    margin-top:15px;
+
+    padding:10px 24px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.4);
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    cursor:pointer;
+}
+
+/* BOTON MUSICA */
+
+.music{
+
+    position:absolute;
+
+    z-index:10;
+
+    right:15px;
+
+    top:15px;
+
+    padding:9px 15px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.3);
+
+    background:rgba(0,0,0,.3);
+
+    color:white;
+
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="galaxy">
+
+<div class="nebula one"></div>
+<div class="nebula two"></div>
+
+<div class="orbit one"></div>
+<div class="orbit two"></div>
+
+<div id="stars"></div>
+
+
+<button class="music" id="musicButton">
+🎵 BLUE
+</button>
+
+
+<div class="center">
+
+<h1>
+Nuestro pequeño universo
+</h1>
+
+<p>
+Un pedacito de nuestra historia · 1 mes 🤍
+</p>
+
+</div>
+
+
+<!-- ESTRELLAS INTERACTIVAS -->
+
+<button class="planet p1" data-number="0">
+🌎
+<span class="label">
+El comienzo
+</span>
+</button>
+
+
+<button class="planet p2" data-number="1">
+✨
+<span class="label">
+El reencuentro
+</span>
+</button>
+
+
+<button class="planet p3" data-number="2">
+💫
+<span class="label">
+Todo pasó rápido
+</span>
+</button>
+
+
+<button class="planet p4" data-number="3">
+🎧
+<span class="label">
+Lo que me encanta
+</span>
+</button>
+
+
+<button class="planet p5" data-number="4">
+💗
+<span class="label">
+Mi favorita
+</span>
+</button>
+
+
+<button class="planet p6" data-number="5">
+🌙
+<span class="label">
+A pesar de la distancia
+</span>
+</button>
+
+
+<button class="planet p7" data-number="6">
+⭐
+<span class="label">
+Nuestro primer mes
+</span>
+</button>
+
+
+<button class="planet p8" data-number="7">
+💌
+<span class="label">
+Para ti
+</span>
+</button>
+
+
+<div class="hint">
+Toca las estrellitas para descubrir nuestra historia ✨
+</div>
+
+
+<!-- VENTANA -->
+
+<div class="modal" id="modal">
+
+<div class="card">
+
+<div class="emoji" id="emoji"></div>
+
+<h2 id="title"></h2>
+
+<p id="text"></p>
+
+<button class="close" id="close">
+Cerrar ✨
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* CREAR ESTRELLAS */
+
+const starsContainer =
+document.getElementById("stars");
+
+for(let i=0;i<180;i++){
+
+    const star =
+    document.createElement("div");
+
+    star.className="star";
+
+    star.style.left =
+    Math.random()*100+"%";
+
+    star.style.top =
+    Math.random()*100+"%";
+
+    star.style.animationDelay =
+    Math.random()*3+"s";
+
+    star.style.opacity =
+    .2+Math.random()*.8;
+
+    starsContainer.appendChild(star);
+}
+
+
+/* HISTORIA */
+
+const story=[
+
+{
+
+emoji:"🌎",
+
+title:"El comienzo",
+
+text:`Nos conocimos en marzo, en una app para socializar con personas de todo el mundo.
+
+Intercambiamos nuestros números y hablamos poquito, creo que solamente durante un día.
+
+Después cada uno siguió con su vida, sin imaginar que unos meses después volveríamos a encontrarnos.
+
+Supongo que el universo todavía no había terminado con nosotros. ✨`
+
+},
+
+{
+
+emoji:"✨",
+
+title:"El reencuentro",
+
+text:`Pasaron unos meses y, cuando menos lo esperaba, apareciste otra vez.
+
+Subí una foto mía a mi estado y vos respondiste.
+
+Y desde ese momento volvimos a hablar, pero esta vez fue diferente.
+
+Empezamos a conocernos de verdad. 🤍`
+
+},
+
+{
+
+emoji:"💫",
+
+title:"Todo pasó rápido",
+
+text:`No pasó demasiado tiempo.
+
+Empezamos a hablar cada vez más, a conocernos y a compartir cosas de nosotros.
+
+Y en menos de dos semanas terminamos convirtiéndonos en novios.
+
+Fue rápido...
+
+Pero también fue bonito. 🥺🤍`
+
+},
+
+{
+
+emoji:"🎧",
+
+title:"Lo que me encanta de vos",
+
+text:`Me encanta la manera tan fácil que tenés para expresarte.
+
+Me encanta esa voz tan linda que tenés y podría escucharte durante muchísimo tiempo.
+
+Me encanta tu personalidad tan adorable.
+
+Me encantan tus ojitos.
+
+Y me encanta cómo conseguís hacerme sentir especial con algo lindo que no esperaba. 🤍`
+
+},
+
+{
+
+emoji:"💗",
+
+title:"Mi parte favorita",
+
+text:`Creo que una de las cosas que más me gustan de vos es la manera en que se te ilumina el rostro cada vez que me decís algo lindo que no esperaba.
+
+Esos pequeños momentos son los que hacen que me quede pensando:
+
+"Qué lindo que sea él." 🥺💗`
+
+},
+
+{
+
+emoji:"🌙",
+
+title:"A pesar de la distancia",
+
+text:`Estamos lejos.
+
+No tenemos fotos juntos ni podemos celebrar este día estando uno al lado del otro.
+
+Pero aun así conseguimos crear nuestros propios momentos.
+
+Conversaciones, audios, risas, mensajes y pequeños detalles que hacen que la distancia se sienta un poquito más pequeña.
+
+Y eso también forma parte de nuestra historia. 🌙`
+
+},
+
+{
+
+emoji:"⭐",
+
+title:"Nuestro primer mes",
+
+text:`Un mes.
+
+Un mes desde que decidimos llamarnos novios.
+
+Un mes de conversaciones, audios, risas, momentos bonitos y también de aprender a conocernos.
+
+Y aunque todavía nos queda muchísimo por descubrir del otro...
+
+Me alegra que este haya sido nuestro primer capítulo.
+
+Feliz primer mes, mi amor. 🤍`
+
+},
+
+{
+
+emoji:"💌",
+
+title:"Para vos",
+
+text:`Hoy cumplimos nuestro primer mes y quería hacerte algo diferente.
+
+No podía darte una foto nuestra porque todavía no tenemos una.
+
+No podía estar ahí para abrazarte.
+
+Así que hice algo que sí podía darte:
+
+Un pequeño universo hecho para vos. 🌌
+
+Cada estrellita guarda un pedacito de nuestra historia.
+
+Gracias por aparecer otra vez en mi vida después de aquel pequeño encuentro de marzo.
+
+Gracias por cada conversación, cada audio, cada risa y cada momento que compartimos desde nuestros propios rinconcitos del mundo.
+
+Quizás todavía nos queda muchísimo por conocernos.
+
+Pero me gusta pensar que este es apenas el primer capítulo de nuestra historia.
+
+Feliz primer mes, mi amor. 🤍
+
+Te quiero muchísimo.`
+
+}
+
+];
+
+
+/* ABRIR MENSAJES */
+
+const planets =
+document.querySelectorAll(".planet");
+
+const modal =
+document.getElementById("modal");
+
+const emoji =
+document.getElementById("emoji");
+
+const title =
+document.getElementById("title");
+
+const text =
+document.getElementById("text");
+
+
+planets.forEach(planet=>{
+
+    planet.addEventListener("click",()=>{
+
+        const number =
+        planet.dataset.number;
+
+        const item =
+        story[number];
+
+        emoji.textContent =
+        item.emoji;
+
+        title.textContent =
+        item.title;
+
+        text.textContent =
+        item.text;
+
+        modal.style.display="flex";
+
+    });
+
+});
+
+
+/* CERRAR */
+
+document
+.getElementById("close")
+.addEventListener("click",()=>{
+
+    modal.style.display="none";
+
+});
+
+
+modal.addEventListener("click",(event)=>{
+
+    if(event.target===modal){
+
+        modal.style.display="none";
+
+    }
+
+});
+
+
+/* MUSICA */
+
+const musicButton =
+document.getElementById("musicButton");
+
+/*
+
+IMPORTANTE:
+
+Para usar BLUE como música de fondo:
+
+1. Guarda el archivo de audio.
+2. Llámalo:
+
+BLUE.mp3
+
+3. Ponlo en la misma carpeta que index.html.
+
+*/
+
+const music =
+new Audio("BLUE.mp3");
+
+music.loop=true;
+
+let playing=false;
+
+
+musicButton.addEventListener("click",async()=>{
+
+    try{
+
+        if(!playing){
+
+            await music.play();
+
+            playing=true;
+
+            musicButton.textContent="⏸️ BLUE";
+
+        }
+
+        else{
+
+            music.pause();
+
+            playing=false;
+
+            musicButton.textContent="🎵 BLUE";
+
+        }
+
+    }
+
+    catch(error){
+
+        alert(
+        "Para reproducir la canción, coloca un archivo llamado BLUE.mp3 junto a index.html."
+        );
+
+    }
+
+});
+
+</script>
+
+</body>
+  </html>
