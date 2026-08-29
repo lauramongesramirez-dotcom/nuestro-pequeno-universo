@@ -2,862 +2,1358 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Nuestro pequeño universo 🌌</title>
+<title>Nuestro Pequeño Universo 🌌</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-    margin:0;
-    overflow:hidden;
-    font-family:Georgia, serif;
-    color:white;
-    background:#030314;
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    color: white;
+    font-family: Georgia, serif;
+    touch-action: none;
 }
 
-/* GALAXIA */
+canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
 
-.galaxy{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    overflow:hidden;
-
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     background:
-    radial-gradient(circle at 50% 50%,
-    #28215c 0%,
-    #15143d 30%,
-    #080820 65%,
-    #02020c 100%);
+        radial-gradient(circle at center, #24103d 0%, #080511 45%, #000 100%);
+    transition: opacity 1s ease;
 }
 
-/* NEBULOSAS */
-
-.nebula{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(70px);
-    opacity:.25;
+#intro.hide {
+    opacity: 0;
+    pointer-events: none;
 }
 
-.nebula.one{
-    width:500px;
-    height:500px;
-    left:-200px;
-    top:100px;
-    background:#746cff;
+.intro-content {
+    width: 90%;
+    max-width: 600px;
 }
 
-.nebula.two{
-    width:450px;
-    height:450px;
-    right:-180px;
-    bottom:-100px;
-    background:#d46bc4;
+.small {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 5px;
+    opacity: .55;
+    text-transform: uppercase;
 }
 
-/* ESTRELLAS */
-
-.star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    border-radius:50%;
-    animation:twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle{
-
-    from{
-        opacity:.2;
-        transform:scale(.7);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1.4);
-    }
-}
-
-/* TEXTO CENTRAL */
-
-.center{
-    position:absolute;
-    z-index:3;
-
-    top:50%;
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    text-align:center;
-
-    width:90%;
-}
-
-.center h1{
-
-    margin:0;
-
-    font-size:clamp(38px,8vw,72px);
-
-    font-weight:normal;
-
+h1 {
+    font-size: clamp(45px, 12vw, 90px);
+    line-height: .9;
+    margin: 22px 0;
     text-shadow:
-    0 0 15px #ffffff,
-    0 0 35px #9186ff;
+        0 0 15px white,
+        0 0 45px #b45cff,
+        0 0 90px #ff3fc7;
 }
 
-.center p{
-
-    margin-top:15px;
-
-    font-size:clamp(14px,3vw,20px);
-
-    opacity:.75;
+.intro-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    opacity: .75;
+    margin-bottom: 28px;
 }
 
-/* ORBITAS */
-
-.orbit{
-
-    position:absolute;
-
-    top:50%;
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    border-radius:50%;
+#enter {
+    border: 1px solid #ffffff55;
+    background: #ffffff12;
+    color: white;
+    border-radius: 40px;
+    padding: 14px 25px;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    box-shadow: 0 0 35px #a75cff55;
 }
 
-.orbit.one{
-
-    width:min(80vw,750px);
-    height:min(80vw,750px);
+#music {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+    border: 1px solid #ffffff30;
+    background: #070510bb;
+    color: white;
+    border-radius: 30px;
+    padding: 9px 13px;
+    backdrop-filter: blur(10px);
 }
 
-.orbit.two{
-
-    width:min(55vw,520px);
-    height:min(55vw,520px);
+#title {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    opacity: .45;
+    white-space: nowrap;
 }
 
-/* BOTONES */
+#hint {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    opacity: .45;
+    white-space: nowrap;
+}
 
-.planet{
+#memory {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translate(-50%, 30px);
+    width: 90%;
+    max-width: 520px;
+    padding: 22px;
+    background: #080711e8;
+    border: 1px solid #ffffff20;
+    border-radius: 25px;
+    text-align: center;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 0 60px #a550ff44;
+    opacity: 0;
+    pointer-events: none;
+    transition: .45s;
+    z-index: 15;
+}
 
-    position:absolute;
+#memory.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+}
 
-    z-index:5;
+#memory h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
 
-    width:65px;
-    height:65px;
+#memory p {
+    line-height: 1.6;
+    font-size: 15px;
+}
 
-    border-radius:50%;
+.close,
+.back {
+    margin-top: 15px;
+    padding: 9px 18px;
+    border-radius: 20px;
+    border: 1px solid #ffffff30;
+    background: #ffffff10;
+    color: white;
+}
 
-    border:1px solid rgba(255,255,255,.5);
-
+#letter {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: none;
+    overflow-y: auto;
     background:
-    radial-gradient(
-    circle at 30% 25%,
-    white,
-    #d9d4ff 15%,
-    #8979ed 45%,
-    #29224e 80%
-    );
-
-    color:white;
-
-    font-size:25px;
-
-    cursor:pointer;
-
-    box-shadow:
-    0 0 20px rgba(150,130,255,.8);
-
-    transition:.25s;
+        radial-gradient(circle at 50% 20%, #30104d, #080411 55%, #000);
 }
 
-.planet:hover{
-
-    transform:scale(1.2);
-
+#letter.open {
+    display: block;
 }
 
-.label{
-
-    position:absolute;
-
-    top:72px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    white-space:nowrap;
-
-    font-size:11px;
-
-    opacity:.8;
-
-    text-shadow:0 2px 5px black;
+.paper {
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+    padding: 55px 0 70px;
+    text-align: center;
 }
 
-/* POSICIONES */
-
-.p1{
-    left:8%;
-    top:27%;
+.paper h2 {
+    font-size: clamp(38px, 10vw, 65px);
+    margin: 15px 0 30px;
+    text-shadow: 0 0 30px #bd72ff88;
 }
 
-.p2{
-    left:26%;
-    top:10%;
+.paper p {
+    font-size: 17px;
+    line-height: 1.85;
+    margin: 20px 0;
+    opacity: .92;
 }
 
-.p3{
-    right:22%;
-    top:14%;
+.paper strong {
+    color: white;
+    text-shadow: 0 0 12px #ff72d5;
 }
-
-.p4{
-    right:6%;
-    top:43%;
-}
-
-.p5{
-    right:13%;
-    bottom:13%;
-}
-
-.p6{
-    left:32%;
-    bottom:8%;
-}
-
-.p7{
-    left:7%;
-    bottom:20%;
-}
-
-.p8{
-    left:46%;
-    top:14%;
-}
-
-/* MENSAJE */
-
-.hint{
-
-    position:absolute;
-
-    z-index:4;
-
-    bottom:15px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    font-size:12px;
-
-    opacity:.5;
-
-    text-align:center;
-
-}
-
-/* MODAL */
-
-.modal{
-
-    display:none;
-
-    position:absolute;
-
-    inset:0;
-
-    z-index:20;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:20px;
-
-    background:rgba(0,0,10,.78);
-
-    backdrop-filter:blur(8px);
-}
-
-.card{
-
-    width:min(650px,94vw);
-
-    max-height:85vh;
-
-    overflow:auto;
-
-    padding:32px;
-
-    text-align:center;
-
-    border-radius:25px;
-
-    border:1px solid rgba(255,255,255,.25);
-
-    background:
-    linear-gradient(
-    145deg,
-    rgba(35,30,85,.97),
-    rgba(7,7,25,.97)
-    );
-
-    box-shadow:
-    0 20px 80px rgba(0,0,0,.7);
-
-    animation:appear .3s ease;
-}
-
-@keyframes appear{
-
-    from{
-        opacity:0;
-        transform:scale(.85);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
-
-.card .emoji{
-
-    font-size:48px;
-
-}
-
-.card h2{
-
-    font-size:30px;
-
-    font-weight:normal;
-
-    margin:10px 0 20px;
-}
-
-.card p{
-
-    font-size:17px;
-
-    line-height:1.75;
-
-    white-space:pre-line;
-
-    color:#eee;
-}
-
-.close{
-
-    margin-top:15px;
-
-    padding:10px 24px;
-
-    border-radius:30px;
-
-    border:1px solid rgba(255,255,255,.4);
-
-    background:rgba(255,255,255,.08);
-
-    color:white;
-
-    cursor:pointer;
-}
-
-/* BOTON MUSICA */
-
-.music{
-
-    position:absolute;
-
-    z-index:10;
-
-    right:15px;
-
-    top:15px;
-
-    padding:9px 15px;
-
-    border-radius:30px;
-
-    border:1px solid rgba(255,255,255,.3);
-
-    background:rgba(0,0,0,.3);
-
-    color:white;
-
-    cursor:pointer;
-}
-
 </style>
 </head>
 
-
 <body>
 
-<div class="galaxy">
+<canvas id="space"></canvas>
 
-<div class="nebula one"></div>
-<div class="nebula two"></div>
+<div id="title">
+NUESTRO PEQUEÑO UNIVERSO · 1 MES
+</div>
 
-<div class="orbit one"></div>
-<div class="orbit two"></div>
+<button id="music">▶ BLUE — YUNG KAI</button>
 
-<div id="stars"></div>
+<div id="hint">
+Arrastrá para girar · pellizcá para acercar · tocá las estrellas ✨
+</div>
 
+<div id="intro">
 
-<button class="music" id="musicButton">
-🎵 BLUE
-</button>
+    <div class="intro-content">
 
+        <div class="small">Para vos 🤍</div>
 
-<div class="center">
+        <h1>
+            Nuestro<br>
+            Pequeño<br>
+            Universo
+        </h1>
 
-<h1>
-Nuestro pequeño universo
-</h1>
+        <p>
+            Un lugarcito hecho de estrellas,
+            recuerdos y todo lo bonito que
+            empezó con una casualidad.
+        </p>
 
-<p>
-Un pedacito de nuestra historia · 1 mes 🤍
-</p>
+        <button id="enter">
+            Entrar al universo ✨
+        </button>
+
+    </div>
 
 </div>
 
+<div id="memory">
 
-<!-- ESTRELLAS INTERACTIVAS -->
+    <h2 id="memoryTitle"></h2>
 
-<button class="planet p1" data-number="0">
-🌎
-<span class="label">
-El comienzo
-</span>
-</button>
+    <p id="memoryText"></p>
 
-
-<button class="planet p2" data-number="1">
-✨
-<span class="label">
-El reencuentro
-</span>
-</button>
-
-
-<button class="planet p3" data-number="2">
-💫
-<span class="label">
-Todo pasó rápido
-</span>
-</button>
-
-
-<button class="planet p4" data-number="3">
-🎧
-<span class="label">
-Lo que me encanta
-</span>
-</button>
-
-
-<button class="planet p5" data-number="4">
-💗
-<span class="label">
-Mi favorita
-</span>
-</button>
-
-
-<button class="planet p6" data-number="5">
-🌙
-<span class="label">
-A pesar de la distancia
-</span>
-</button>
-
-
-<button class="planet p7" data-number="6">
-⭐
-<span class="label">
-Nuestro primer mes
-</span>
-</button>
-
-
-<button class="planet p8" data-number="7">
-💌
-<span class="label">
-Para ti
-</span>
-</button>
-
-
-<div class="hint">
-Toca las estrellitas para descubrir nuestra historia ✨
-</div>
-
-
-<!-- VENTANA -->
-
-<div class="modal" id="modal">
-
-<div class="card">
-
-<div class="emoji" id="emoji"></div>
-
-<h2 id="title"></h2>
-
-<p id="text"></p>
-
-<button class="close" id="close">
-Cerrar ✨
-</button>
+    <button class="close">
+        Seguir viajando ✨
+    </button>
 
 </div>
 
-</div>
+<div id="letter">
+
+    <div class="paper">
+
+        <div class="small">
+            NUESTRO PRIMER MES
+        </div>
+
+        <h2>
+            Para vos, mi amor 🤍
+        </h2>
+
+        <p>
+            Quién diría que una persona que conocí
+            en marzo, en una app random, terminaría
+            convirtiéndose en alguien tan importante
+            para mí.
+        </p>
+
+        <p>
+            En ese momento apenas hablamos un poquito,
+            creo que solamente durante un día, y después
+            cada uno siguió con su vida. Sin saber que
+            unos meses después, en julio, una simple
+            respuesta a una foto mía iba a hacer que
+            nuestros caminos volvieran a encontrarse.
+            ✨
+        </p>
+
+        <p>
+            Desde ese momento empezamos a hablar,
+            a conocernos y a descubrir poquito a poquito
+            todas esas cosas que hoy hacen que me gustes
+            tanto. Y, aunque pasó todo bastante rápido,
+            en menos de dos semanas ya nos habíamos
+            convertido en novios.
+        </p>
+
+        <p>
+            Todavía me parece curioso pensar en cómo
+            alguien que al principio era prácticamente
+            un desconocido terminó formando parte
+            de mis días.
+        </p>
+
+        <p>
+            Ahora me gusta escucharte, hablar contigo,
+            conocer tus pensamientos y recibir esos
+            mensajes tuyos que a veces consiguen
+            sacarme una sonrisa sin que siquiera
+            te des cuenta.
+        </p>
+
+        <p>
+            Me encanta la facilidad que tenés para
+            expresar lo que sentís. A veces decís cosas
+            tan lindas que me dejás sin palabras.
+            Y también me encanta tu voz, tu personalidad
+            tan adorable y, por supuesto, esos ojitos
+            lindos que tenés. 🥹🤍
+        </p>
+
+        <p>
+            <strong>
+                Podría mirar miles de estrellas y, aun así,
+                ninguna brillaría tanto como tus hermosos ojos.
+            </strong>
+            🌟
+        </p>
+
+        <p>
+            Creo que una de las cosas que más me gustan
+            de vos es la manera en la que hacés que se me
+            ilumine el rostro y me pongo contenta cada vez
+            que me decís algo lindo que no esperaba.
+        </p>
+
+        <p>
+            Sé que todavía nos queda muchísimo por
+            conocernos y que este es apenas nuestro
+            primer mes.
+        </p>
+
+        <p>
+            Pero me alegra muchísimo que aquella
+            casualidad haya terminado llevándome
+            hasta vos.
+        </p>
+
+        <p>
+            Gracias por cada conversación, cada audio,
+            cada palabra bonita, cada momento en el que
+            me hiciste sonreír y por todo el cariño
+            que me das.
+        </p>
+
+        <p>
+            Quizás nuestro pequeño universo todavía
+            sea pequeñito, pero espero que podamos
+            seguir llenándolo de recuerdos, risas,
+            canciones, conversaciones y muchos
+            momentos juntos.
+        </p>
+
+        <p>
+            <strong>
+                Feliz primer mes, mi amor. 🌌🤍
+            </strong>
+        </p>
+
+        <p>
+            <strong>
+                Te amo muchísimo.
+            </strong>
+        </p>
+
+        <p>
+            — LM 🤍
+        </p>
+
+        <button class="back">
+            Volver a la galaxia
+        </button>
+
+    </div>
 
 </div>
 
+<!-- 🎵 TU CANCIÓN -->
+<audio id="audio" src="blue.mp3" loop preload="auto"></audio>
 
 <script>
 
-/* CREAR ESTRELLAS */
+const canvas = document.getElementById("space");
+const ctx = canvas.getContext("2d");
 
-const starsContainer =
-document.getElementById("stars");
+let W, H;
+let cx, cy;
 
-for(let i=0;i<180;i++){
+let rotationX = .25;
+let rotationY = 0;
+let zoom = 1;
 
-    const star =
-    document.createElement("div");
+let dragging = false;
+let lastX = 0;
+let lastY = 0;
 
-    star.className="star";
+let particles = [];
+let nebula = [];
+let memories = [];
 
-    star.style.left =
-    Math.random()*100+"%";
+const TAU = Math.PI * 2;
 
-    star.style.top =
-    Math.random()*100+"%";
 
-    star.style.animationDelay =
-    Math.random()*3+"s";
+/* =========================
+   TAMAÑO
+========================= */
 
-    star.style.opacity =
-    .2+Math.random()*.8;
+function resize() {
 
-    starsContainer.appendChild(star);
+    W = canvas.width = innerWidth;
+    H = canvas.height = innerHeight;
+
+    cx = W / 2;
+    cy = H / 2;
+
+    createUniverse();
+}
+
+window.addEventListener("resize", resize);
+
+
+/* =========================
+   CREAR UNIVERSO
+========================= */
+
+function createUniverse() {
+
+    particles = [];
+    nebula = [];
+    memories = [];
+
+    const amount = Math.min(
+        5000,
+        Math.max(2200, Math.floor(W * H / 170))
+    );
+
+    for (let i = 0; i < amount; i++) {
+
+        const angle = Math.random() * TAU;
+
+        const radius =
+            Math.pow(Math.random(), .55) *
+            Math.min(W, H) * .65 + 30;
+
+        const spiral = angle + radius * .012;
+
+        particles.push({
+
+            x: Math.cos(spiral) * radius,
+
+            y:
+                (Math.random() - .5) *
+                radius * .35,
+
+            z:
+                (Math.random() - .5) * 1000,
+
+            size:
+                .4 + Math.random() * 2,
+
+            brightness:
+                .25 + Math.random() * .75,
+
+            speed:
+                .001 + Math.random() * .004
+        });
+    }
+
+
+    for (let i = 0; i < 1800; i++) {
+
+        const a = Math.random() * TAU;
+
+        const r =
+            Math.pow(Math.random(), .7) *
+            Math.min(W, H) * .48;
+
+        nebula.push({
+
+            x: Math.cos(a) * r,
+
+            y:
+                Math.sin(a) * r * .25,
+
+            z:
+                (Math.random() - .5) * 500,
+
+            size:
+                1 + Math.random() * 3,
+
+            phase:
+                Math.random() * TAU
+        });
+    }
+
+
+    const emojis = [
+        "🌱",
+        "✨",
+        "💗",
+        "💌",
+        "🎧",
+        "👀",
+        "🥹",
+        "🤍"
+    ];
+
+    for (let i = 0; i < 8; i++) {
+
+        memories.push({
+
+            angle:
+                i / 8 * TAU,
+
+            distance:
+                Math.min(W, H) * .34,
+
+            emoji: emojis[i]
+        });
+    }
 }
 
 
-/* HISTORIA */
-
-const story=[
-
-{
-
-emoji:"🌎",
-
-title:"El comienzo",
-
-text:`Nos conocimos en marzo, en una app para socializar con personas de todo el mundo.
-
-Intercambiamos nuestros números y hablamos poquito, creo que solamente durante un día.
-
-Después cada uno siguió con su vida, sin imaginar que unos meses después volveríamos a encontrarnos.
-
-Supongo que el universo todavía no había terminado con nosotros. ✨`
-
-},
-
-{
-
-emoji:"✨",
-
-title:"El reencuentro",
-
-text:`Pasaron unos meses y, cuando menos lo esperaba, apareciste otra vez.
-
-Subí una foto mía a mi estado y vos respondiste.
-
-Y desde ese momento volvimos a hablar, pero esta vez fue diferente.
-
-Empezamos a conocernos de verdad. 🤍`
-
-},
-
-{
-
-emoji:"💫",
-
-title:"Todo pasó rápido",
-
-text:`No pasó demasiado tiempo.
-
-Empezamos a hablar cada vez más, a conocernos y a compartir cosas de nosotros.
-
-Y en menos de dos semanas terminamos convirtiéndonos en novios.
-
-Fue rápido...
-
-Pero también fue bonito. 🥺🤍`
-
-},
-
-{
-
-emoji:"🎧",
-
-title:"Lo que me encanta de vos",
-
-text:`Me encanta la manera tan fácil que tenés para expresarte.
-
-Me encanta esa voz tan linda que tenés y podría escucharte durante muchísimo tiempo.
-
-Me encanta tu personalidad tan adorable.
-
-Me encantan tus ojitos.
-
-Y me encanta cómo conseguís hacerme sentir especial con algo lindo que no esperaba. 🤍`
-
-},
-
-{
-
-emoji:"💗",
-
-title:"Mi parte favorita",
-
-text:`Creo que una de las cosas que más me gustan de vos es la manera en que se te ilumina el rostro cada vez que me decís algo lindo que no esperaba.
-
-Esos pequeños momentos son los que hacen que me quede pensando:
-
-"Qué lindo que sea él." 🥺💗`
-
-},
-
-{
-
-emoji:"🌙",
-
-title:"A pesar de la distancia",
-
-text:`Estamos lejos.
-
-No tenemos fotos juntos ni podemos celebrar este día estando uno al lado del otro.
-
-Pero aun así conseguimos crear nuestros propios momentos.
-
-Conversaciones, audios, risas, mensajes y pequeños detalles que hacen que la distancia se sienta un poquito más pequeña.
-
-Y eso también forma parte de nuestra historia. 🌙`
-
-},
-
-{
-
-emoji:"⭐",
-
-title:"Nuestro primer mes",
-
-text:`Un mes.
-
-Un mes desde que decidimos llamarnos novios.
-
-Un mes de conversaciones, audios, risas, momentos bonitos y también de aprender a conocernos.
-
-Y aunque todavía nos queda muchísimo por descubrir del otro...
-
-Me alegra que este haya sido nuestro primer capítulo.
-
-Feliz primer mes, mi amor. 🤍`
-
-},
-
-{
-
-emoji:"💌",
-
-title:"Para vos",
-
-text:`Hoy cumplimos nuestro primer mes y quería hacerte algo diferente.
-
-No podía darte una foto nuestra porque todavía no tenemos una.
-
-No podía estar ahí para abrazarte.
-
-Así que hice algo que sí podía darte:
-
-Un pequeño universo hecho para vos. 🌌
-
-Cada estrellita guarda un pedacito de nuestra historia.
-
-Gracias por aparecer otra vez en mi vida después de aquel pequeño encuentro de marzo.
-
-Gracias por cada conversación, cada audio, cada risa y cada momento que compartimos desde nuestros propios rinconcitos del mundo.
-
-Quizás todavía nos queda muchísimo por conocernos.
-
-Pero me gusta pensar que este es apenas el primer capítulo de nuestra historia.
-
-Feliz primer mes, mi amor. 🤍
-
-Te quiero muchísimo.`
-
+/* =========================
+   ROTACIÓN 3D
+========================= */
+
+function rotate3D(p) {
+
+    let x = p.x;
+    let y = p.y;
+    let z = p.z;
+
+    let cosY = Math.cos(rotationY);
+    let sinY = Math.sin(rotationY);
+
+    let x2 =
+        x * cosY -
+        z * sinY;
+
+    let z2 =
+        x * sinY +
+        z * cosY;
+
+    let cosX = Math.cos(rotationX);
+    let sinX = Math.sin(rotationX);
+
+    let y2 =
+        y * cosX -
+        z2 * sinX;
+
+    let z3 =
+        y * sinX +
+        z2 * cosX;
+
+    return {
+        x: x2,
+        y: y2,
+        z: z3
+    };
 }
+
+
+/* =========================
+   PROYECCIÓN
+========================= */
+
+function project(p) {
+
+    const r = rotate3D(p);
+
+    const focal = 700 * zoom;
+
+    const scale =
+        focal /
+        (focal + r.z);
+
+    return {
+
+        x:
+            cx +
+            r.x * scale,
+
+        y:
+            cy +
+            r.y * scale,
+
+        scale: scale,
+
+        z: r.z
+    };
+}
+
+
+/* =========================
+   ESTRELLA
+========================= */
+
+function star(x, y, size, brightness) {
+
+    const gradient =
+        ctx.createRadialGradient(
+            x, y, 0,
+            x, y, size * 7
+        );
+
+    gradient.addColorStop(
+        0,
+        `rgba(255,255,255,${brightness})`
+    );
+
+    gradient.addColorStop(
+        .18,
+        `rgba(255,120,235,${brightness * .8})`
+    );
+
+    gradient.addColorStop(
+        1,
+        "rgba(100,50,255,0)"
+    );
+
+    ctx.fillStyle = gradient;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        size * 7,
+        0,
+        TAU
+    );
+
+    ctx.fill();
+
+    ctx.fillStyle =
+        `rgba(255,255,255,${brightness})`;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        Math.max(.4, size),
+        0,
+        TAU
+    );
+
+    ctx.fill();
+}
+
+
+/* =========================
+   GALAXIA
+========================= */
+
+function drawGalaxy() {
+
+    ctx.fillStyle =
+        "rgba(0,0,8,.20)";
+
+    ctx.fillRect(
+        0, 0, W, H
+    );
+
+
+    const bg =
+        ctx.createRadialGradient(
+            cx, cy, 0,
+            cx, cy, Math.max(W, H) * .7
+        );
+
+    bg.addColorStop(
+        0,
+        "rgba(110,30,150,.15)"
+    );
+
+    bg.addColorStop(
+        .35,
+        "rgba(35,15,90,.09)"
+    );
+
+    bg.addColorStop(
+        1,
+        "rgba(0,0,0,0)"
+    );
+
+    ctx.fillStyle = bg;
+
+    ctx.fillRect(
+        0, 0, W, H
+    );
+
+
+    for (const p of particles) {
+
+        p.z -= p.speed * 8;
+
+        if (p.z < -500)
+            p.z = 500;
+
+        const q = project(p);
+
+        if (
+            q.x < 0 ||
+            q.x > W ||
+            q.y < 0 ||
+            q.y > H
+        )
+            continue;
+
+        const pulse =
+            .65 +
+            Math.sin(
+                Date.now() * .001 +
+                p.x
+            ) * .35;
+
+        star(
+            q.x,
+            q.y,
+            p.size * q.scale,
+            p.brightness * pulse
+        );
+    }
+
+
+    for (const p of nebula) {
+
+        p.phase += .005;
+
+        const q = project(p);
+
+        if (
+            q.x < 0 ||
+            q.x > W ||
+            q.y < 0 ||
+            q.y > H
+        )
+            continue;
+
+        const alpha =
+            .08 +
+            Math.sin(p.phase) * .06;
+
+        ctx.fillStyle =
+            `rgba(255,70,220,${alpha})`;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            q.x,
+            q.y,
+            p.size * q.scale,
+            0,
+            TAU
+        );
+
+        ctx.fill();
+    }
+
+
+    /* Brazos de la galaxia */
+
+    ctx.save();
+
+    ctx.translate(cx, cy);
+
+    ctx.rotate(rotationY * .3);
+
+    for (let arm = 0; arm < 5; arm++) {
+
+        ctx.beginPath();
+
+        for (let i = 0; i < 500; i++) {
+
+            const t =
+                i / 500 *
+                TAU * 2.5 +
+                arm * TAU / 5;
+
+            const r =
+                20 +
+                i / 500 *
+                Math.min(W, H) * .38;
+
+            const x =
+                Math.cos(t) * r;
+
+            const y =
+                Math.sin(t) * r * .27;
+
+            if (i === 0)
+                ctx.moveTo(x, y);
+            else
+                ctx.lineTo(x, y);
+        }
+
+        ctx.strokeStyle =
+            "rgba(190,80,255,.09)";
+
+        ctx.lineWidth = 15;
+
+        ctx.shadowBlur = 25;
+
+        ctx.shadowColor = "#c04cff";
+
+        ctx.stroke();
+    }
+
+    ctx.restore();
+
+
+    /* Núcleo */
+
+    const core =
+        ctx.createRadialGradient(
+            cx, cy, 2,
+            cx, cy, 170
+        );
+
+    core.addColorStop(
+        0,
+        "rgba(255,255,255,.95)"
+    );
+
+    core.addColorStop(
+        .05,
+        "rgba(255,220,255,.9)"
+    );
+
+    core.addColorStop(
+        .18,
+        "rgba(255,70,200,.6)"
+    );
+
+    core.addColorStop(
+        .5,
+        "rgba(100,40,255,.16)"
+    );
+
+    core.addColorStop(
+        1,
+        "rgba(0,0,0,0)"
+    );
+
+    ctx.fillStyle = core;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        cx,
+        cy,
+        170 * zoom,
+        0,
+        TAU
+    );
+
+    ctx.fill();
+
+
+    /* Centro oscuro */
+
+    ctx.fillStyle = "#000";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        cx,
+        cy,
+        30 * zoom,
+        0,
+        TAU
+    );
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        "rgba(255,170,255,.8)";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        cx,
+        cy,
+        75 * zoom,
+        23 * zoom,
+        -.15,
+        0,
+        TAU
+    );
+
+    ctx.stroke();
+}
+
+
+/* =========================
+   RECUERDOS
+========================= */
+
+function drawMemories() {
+
+    const t =
+        Date.now() * .001;
+
+    memories.forEach((m, i) => {
+
+        const a =
+            m.angle +
+            t * .025;
+
+        const x =
+            cx +
+            Math.cos(a) *
+            m.distance;
+
+        const y =
+            cy +
+            Math.sin(a) *
+            m.distance * .55;
+
+        m.screenX = x;
+        m.screenY = y;
+
+        const pulse =
+            1 +
+            Math.sin(t * 2 + i) * .08;
+
+        const glow =
+            ctx.createRadialGradient(
+                x, y, 0,
+                x, y, 35
+            );
+
+        glow.addColorStop(
+            0,
+            "rgba(255,80,220,.6)"
+        );
+
+        glow.addColorStop(
+            1,
+            "rgba(130,50,255,0)"
+        );
+
+        ctx.fillStyle = glow;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            35 * pulse,
+            0,
+            TAU
+        );
+
+        ctx.fill();
+
+        ctx.font = "25px serif";
+
+        ctx.textAlign = "center";
+
+        ctx.textBaseline = "middle";
+
+        ctx.fillText(
+            m.emoji,
+            x,
+            y
+        );
+    });
+}
+
+
+/* =========================
+   ANIMACIÓN
+========================= */
+
+function animate() {
+
+    drawGalaxy();
+
+    drawMemories();
+
+    requestAnimationFrame(animate);
+}
+
+
+/* =========================
+   MOUSE / DEDO
+========================= */
+
+canvas.addEventListener(
+    "pointerdown",
+    e => {
+
+        dragging = true;
+
+        lastX = e.clientX;
+        lastY = e.clientY;
+    }
+);
+
+
+canvas.addEventListener(
+    "pointermove",
+    e => {
+
+        if (!dragging)
+            return;
+
+        const dx =
+            e.clientX - lastX;
+
+        const dy =
+            e.clientY - lastY;
+
+        rotationY += dx * .008;
+
+        rotationX += dy * .006;
+
+        rotationX =
+            Math.max(
+                -1.2,
+                Math.min(
+                    1.2,
+                    rotationX
+                )
+            );
+
+        lastX = e.clientX;
+        lastY = e.clientY;
+    }
+);
+
+
+canvas.addEventListener(
+    "pointerup",
+    e => {
+
+        dragging = false;
+
+        checkMemory(
+            e.clientX,
+            e.clientY
+        );
+    }
+);
+
+
+/* =========================
+   ZOOM
+========================= */
+
+canvas.addEventListener(
+    "wheel",
+    e => {
+
+        e.preventDefault();
+
+        zoom +=
+            e.deltaY > 0
+            ? -.1
+            : .1;
+
+        zoom =
+            Math.max(
+                .55,
+                Math.min(
+                    2.5,
+                    zoom
+                )
+            );
+    },
+    { passive: false }
+);
+
+
+/* =========================
+   ZOOM CON DOS DEDOS
+========================= */
+
+let previousDistance = 0;
+
+canvas.addEventListener(
+    "touchstart",
+    e => {
+
+        if (e.touches.length === 2) {
+
+            const a = e.touches[0];
+            const b = e.touches[1];
+
+            previousDistance =
+                Math.hypot(
+                    a.clientX - b.clientX,
+                    a.clientY - b.clientY
+                );
+        }
+    },
+    { passive: false }
+);
+
+
+canvas.addEventListener(
+    "touchmove",
+    e => {
+
+        if (e.touches.length !== 2)
+            return;
+
+        e.preventDefault();
+
+        const a = e.touches[0];
+        const b = e.touches[1];
+
+        const distance =
+            Math.hypot(
+                a.clientX - b.clientX,
+                a.clientY - b.clientY
+            );
+
+        zoom *=
+            distance /
+            previousDistance;
+
+        zoom =
+            Math.max(
+                .55,
+                Math.min(
+                    2.5,
+                    zoom
+                )
+            );
+
+        previousDistance = distance;
+    },
+    { passive: false }
+);
+
+
+/* =========================
+   TEXTOS
+========================= */
+
+const texts = [
+
+    [
+        "El comienzo 🌱",
+        "En marzo nos conocimos en una app random. Intercambiamos nuestros números y hablamos poquito, apenas un día… sin imaginar todo lo que vendría después."
+    ],
+
+    [
+        "Una casualidad ✨",
+        "Pasó un tiempo y dejamos de hablar. Hasta que en julio subí una foto a mi estado y vos respondiste. Desde ahí volvimos a hablar y empezamos a conocernos de verdad."
+    ],
+
+    [
+        "Nuestro primer mes 💗",
+        "No pasó demasiado tiempo hasta que empezamos a sentir algo especial. En menos de dos semanas ya nos habíamos convertido en novios."
+    ],
+
+    [
+        "Tu forma de expresarte 💌",
+        "Me encanta la facilidad que tenés para expresar lo que sentís. A veces decís cosas tan lindas que me dejás sin palabras."
+    ],
+
+    [
+        "Tu voz 🎧",
+        "Una de mis cosas favoritas de vos es tu voz. Podría escucharte hablar durante horas."
+    ],
+
+    [
+        "Tus ojitos 👀",
+        "Tus ojitos lindos tienen un lugar especial en este pequeño universo."
+    ],
+
+    [
+        "Esa sonrisa 🥹",
+        "Creo que una de las cosas que más me gustan de vos es la manera en la que hacés que se me ilumine el rostro y me pongo contenta cada vez que me decís algo lindo que no esperaba."
+    ],
+
+    [
+        "Nosotros 🤍",
+        "Entre mensajes, audios, risas y pequeños momentos, aquí estamos. Un mes puede parecer poquito, pero para mí guarda un montón de recuerdos."
+    ]
 
 ];
 
 
-/* ABRIR MENSAJES */
+function checkMemory(x, y) {
 
-const planets =
-document.querySelectorAll(".planet");
+    let selected = null;
 
-const modal =
-document.getElementById("modal");
+    let closest = 65;
 
-const emoji =
-document.getElementById("emoji");
+    memories.forEach(
+        (m, i) => {
 
-const title =
-document.getElementById("title");
+            const distance =
+                Math.hypot(
+                    x - m.screenX,
+                    y - m.screenY
+                );
 
-const text =
-document.getElementById("text");
+            if (distance < closest) {
 
-
-planets.forEach(planet=>{
-
-    planet.addEventListener("click",()=>{
-
-        const number =
-        planet.dataset.number;
-
-        const item =
-        story[number];
-
-        emoji.textContent =
-        item.emoji;
-
-        title.textContent =
-        item.title;
-
-        text.textContent =
-        item.text;
-
-        modal.style.display="flex";
-
-    });
-
-});
+                closest = distance;
+                selected = i;
+            }
+        }
+    );
 
 
-/* CERRAR */
+    if (selected !== null) {
+
+        document.getElementById(
+            "memoryTitle"
+        ).textContent =
+            texts[selected][0];
+
+        document.getElementById(
+            "memoryText"
+        ).textContent =
+            texts[selected][1];
+
+        document.getElementById(
+            "memory"
+        ).classList.add("show");
+    }
+}
+
+
+/* =========================
+   CARTA
+========================= */
+
+function openLetter() {
+
+    document
+        .getElementById("letter")
+        .classList.add("open");
+}
+
 
 document
-.getElementById("close")
-.addEventListener("click",()=>{
+    .querySelector(".back")
+    .onclick = () => {
 
-    modal.style.display="none";
-
-});
-
-
-modal.addEventListener("click",(event)=>{
-
-    if(event.target===modal){
-
-        modal.style.display="none";
-
-    }
-
-});
+        document
+            .getElementById("letter")
+            .classList.remove("open");
+    };
 
 
-/* MUSICA */
+document
+    .querySelector(".close")
+    .onclick = () => {
 
-const musicButton =
-document.getElementById("musicButton");
+        document
+            .getElementById("memory")
+            .classList.remove("show");
+    };
 
-/*
 
-IMPORTANTE:
+/* =========================
+   MÚSICA
+========================= */
 
-Para usar BLUE como música de fondo:
-
-1. Guarda el archivo de audio.
-2. Llámalo:
-
-BLUE.mp3
-
-3. Ponlo en la misma carpeta que index.html.
-
-*/
+const audio =
+    document.getElementById("audio");
 
 const music =
-new Audio("BLUE.mp3");
-
-music.loop=true;
-
-let playing=false;
+    document.getElementById("music");
 
 
-musicButton.addEventListener("click",async()=>{
+async function playMusic() {
 
-    try{
+    try {
 
-        if(!playing){
+        await audio.play();
 
-            await music.play();
+        music.textContent =
+            "❚❚ BLUE — YUNG KAI";
 
-            playing=true;
+    } catch (error) {
 
-            musicButton.textContent="⏸️ BLUE";
-
-        }
-
-        else{
-
-            music.pause();
-
-            playing=false;
-
-            musicButton.textContent="🎵 BLUE";
-
-        }
-
+        music.textContent =
+            "▶ BLUE — YUNG KAI";
     }
+}
 
-    catch(error){
 
-        alert(
-        "Para reproducir la canción, coloca un archivo llamado BLUE.mp3 junto a index.html."
-        );
+music.onclick = () => {
 
+    if (audio.paused) {
+
+        playMusic();
+
+    } else {
+
+        audio.pause();
+
+        music.textContent =
+            "▶ BLUE — YUNG KAI";
     }
+};
 
-});
+
+/* =========================
+   ENTRAR
+========================= */
+
+document
+    .getElementById("enter")
+    .onclick = () => {
+
+        document
+            .getElementById("intro")
+            .classList.add("hide");
+
+        playMusic();
+    };
+
+
+/* =========================
+   INICIAR
+========================= */
+
+resize();
+
+animate();
 
 </script>
 
 </body>
-  </html>
+            </html>
