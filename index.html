@@ -40,12 +40,10 @@ canvas {
     text-align: center;
 
     background:
-        radial-gradient(
-            circle at center,
-            #281044 0%,
-            #080511 48%,
-            #000 100%
-        );
+        radial-gradient(circle at center,
+        #281044 0%,
+        #080511 48%,
+        #000 100%);
 
     transition: opacity 1.2s ease;
 }
@@ -97,22 +95,19 @@ h1 {
     font-family: Georgia, serif;
     font-size: 16px;
 
-    box-shadow:
-        0 0 35px #a75cff55;
+    box-shadow: 0 0 35px #a75cff55;
 }
 
 #music {
     position: fixed;
     top: 14px;
     right: 14px;
-
     z-index: 20;
 
     border: 1px solid #ffffff30;
     background: #070510bb;
 
     color: white;
-
     border-radius: 30px;
 
     padding: 9px 13px;
@@ -124,34 +119,42 @@ h1 {
     position: fixed;
     top: 18px;
     left: 50%;
-
     transform: translateX(-50%);
 
     z-index: 10;
 
     font-family: Arial, sans-serif;
-
     font-size: 9px;
     letter-spacing: 4px;
-
     opacity: .45;
 
     white-space: nowrap;
+}
+
+#progress {
+    position: fixed;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 15;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    letter-spacing: 3px;
+    opacity: .4;
 }
 
 #hint {
     position: fixed;
     bottom: 16px;
     left: 50%;
-
     transform: translateX(-50%);
 
     z-index: 10;
 
     font-family: Arial, sans-serif;
-
     font-size: 10px;
-
     opacity: .45;
 
     white-space: nowrap;
@@ -163,8 +166,7 @@ h1 {
     left: 50%;
     bottom: 22px;
 
-    transform:
-        translate(-50%, 30px);
+    transform: translate(-50%, 30px);
 
     width: 90%;
     max-width: 520px;
@@ -173,8 +175,7 @@ h1 {
 
     background: #080711e8;
 
-    border:
-        1px solid #ffffff20;
+    border: 1px solid #ffffff20;
 
     border-radius: 25px;
 
@@ -182,11 +183,9 @@ h1 {
 
     backdrop-filter: blur(18px);
 
-    box-shadow:
-        0 0 60px #a550ff44;
+    box-shadow: 0 0 60px #a550ff44;
 
     opacity: 0;
-
     pointer-events: none;
 
     transition: .45s;
@@ -196,22 +195,17 @@ h1 {
 
 #memory.show {
     opacity: 1;
-
-    transform:
-        translate(-50%, 0);
-
+    transform: translate(-50%, 0);
     pointer-events: auto;
 }
 
 #memory h2 {
     margin-bottom: 10px;
-
     font-size: 24px;
 }
 
 #memory p {
     line-height: 1.6;
-
     font-size: 15px;
 }
 
@@ -223,11 +217,9 @@ h1 {
 
     border-radius: 20px;
 
-    border:
-        1px solid #ffffff30;
+    border: 1px solid #ffffff30;
 
-    background:
-        #ffffff10;
+    background: #ffffff10;
 
     color: white;
 }
@@ -243,12 +235,10 @@ h1 {
     overflow-y: auto;
 
     background:
-        radial-gradient(
-            circle at 50% 20%,
-            #30104d,
-            #080411 55%,
-            #000
-        );
+        radial-gradient(circle at 50% 20%,
+        #30104d,
+        #080411 55%,
+        #000);
 }
 
 #letter.open {
@@ -261,21 +251,17 @@ h1 {
 
     margin: auto;
 
-    padding:
-        55px 0 70px;
+    padding: 55px 0 70px;
 
     text-align: center;
 }
 
 .paper h2 {
-    font-size:
-        clamp(38px, 10vw, 65px);
+    font-size: clamp(38px, 10vw, 65px);
 
-    margin:
-        15px 0 30px;
+    margin: 15px 0 30px;
 
-    text-shadow:
-        0 0 30px #bd72ff88;
+    text-shadow: 0 0 30px #bd72ff88;
 }
 
 .paper p {
@@ -291,39 +277,8 @@ h1 {
 .paper strong {
     color: white;
 
-    text-shadow:
-        0 0 12px #ff72d5;
+    text-shadow: 0 0 12px #ff72d5;
 }
-
-
-/* =========================
-   INDICADOR DE PROGRESO
-========================= */
-
-#progress {
-    position: fixed;
-
-    top: 55px;
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    z-index: 15;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    opacity: .5;
-}
-
-
-/* =========================
-   BOTÓN CARTA
-========================= */
 
 #letterButton {
     position: fixed;
@@ -333,11 +288,9 @@ h1 {
 
     z-index: 15;
 
-    border:
-        1px solid #ffffff25;
+    border: 1px solid #ffffff25;
 
-    background:
-        #070510aa;
+    background: #070510aa;
 
     color: white;
 
@@ -357,35 +310,28 @@ h1 {
 
 <canvas id="space"></canvas>
 
-
 <div id="title">
 NUESTRO PEQUEÑO UNIVERSO · 1 MES
 </div>
 
-
 <div id="progress">
-ESTRELLA ①
+ESTRELLA 1
 </div>
-
 
 <button id="music">
 ▶ BLUE — YUNG KAI
 </button>
 
-
 <button id="letterButton">
 💌
 </button>
 
-
 <div id="hint">
-Arrastrá para girar · pellizcá para acercar · seguí las estrellas ① → ⑧
+Arrastrá para girar · pellizcá para acercar · descubrí las estrellas 1 → 8
 </div>
 
 
-<!-- =========================
-     INTRO
-========================= -->
+<!-- INTRO -->
 
 <div id="intro">
 
@@ -416,9 +362,7 @@ Arrastrá para girar · pellizcá para acercar · seguí las estrellas ① → �
 </div>
 
 
-<!-- =========================
-     RECUERDO
-========================= -->
+<!-- RECUERDO -->
 
 <div id="memory">
 
@@ -433,9 +377,7 @@ Arrastrá para girar · pellizcá para acercar · seguí las estrellas ① → �
 </div>
 
 
-<!-- =========================
-     CARTA
-========================= -->
+<!-- CARTA -->
 
 <div id="letter">
 
@@ -451,19 +393,17 @@ Arrastrá para girar · pellizcá para acercar · seguí las estrellas ① → �
 
         <p>
             Quién diría que una persona que conocí
-            en marzo, en una app random, terminaría
-            convirtiéndose en alguien tan importante
-            para mí.
+            en una app random terminaría convirtiéndose
+            en alguien tan importante para mí.
         </p>
 
         <p>
             En ese momento apenas hablamos un poquito,
             creo que solamente durante un día, y después
             cada uno siguió con su vida. Sin saber que
-            unos meses después, en julio, una simple
-            respuesta a una foto mía iba a hacer que
-            nuestros caminos volvieran a encontrarse.
-            ✨
+            unos meses después, una simple respuesta a
+            una foto mía iba a hacer que nuestros caminos
+            volvieran a encontrarse.
         </p>
 
         <p>
@@ -496,7 +436,7 @@ Arrastrá para girar · pellizcá para acercar · seguí las estrellas ① → �
             tan lindas que me dejás sin palabras.
             Y también me encanta tu voz, tu personalidad
             tan adorable y, por supuesto, esos ojitos
-            lindos que tenés. 🥹🤍
+            lindos que tenés.
         </p>
 
         <p>
@@ -504,7 +444,6 @@ Arrastrá para girar · pellizcá para acercar · seguí las estrellas ① → �
                 Podría mirar miles de estrellas y, aun así,
                 ninguna brillaría tanto como tus hermosos ojos.
             </strong>
-            🌟
         </p>
 
         <p>
@@ -566,9 +505,7 @@ Arrastrá para girar · pellizcá para acercar · seguí las estrellas ① → �
 </div>
 
 
-<!-- =========================
-     MÚSICA
-========================= -->
+<!-- AUDIO -->
 
 <audio
     id="audio"
@@ -580,19 +517,13 @@ Arrastrá para girar · pellizcá para acercar · seguí las estrellas ① → �
 
 <script>
 
-const canvas =
-    document.getElementById("space");
-
-const ctx =
-    canvas.getContext("2d");
-
+const canvas = document.getElementById("space");
+const ctx = canvas.getContext("2d");
 
 let W, H;
-
 let cx, cy;
 
 let rotationX = .25;
-
 let rotationY = 0;
 
 let zoom = 1;
@@ -600,122 +531,97 @@ let zoom = 1;
 let dragging = false;
 
 let lastX = 0;
-
 let lastY = 0;
 
 let particles = [];
-
-let nebula = [];
-
+let dust = [];
 let memories = [];
 
 let current = 0;
 
-let completed = 0;
-
-const TAU =
-    Math.PI * 2;
+const TAU = Math.PI * 2;
 
 
 /* =========================
-   TEXTOS
+   RECUERDOS
 ========================= */
 
 const texts = [
 
-    [
-        "① El comienzo 🌱",
+[
+"① El comienzo",
+"En marzo nos conocimos en una app random. Intercambiamos nuestros números y hablamos poquito, apenas un día… sin imaginar todo lo que vendría después."
+],
 
-        "En marzo nos conocimos en una app random. Intercambiamos nuestros números y hablamos poquito, apenas un día… sin imaginar todo lo que vendría después."
-    ],
+[
+"② Una casualidad",
+"Pasó un tiempo y dejamos de hablar. Hasta que en julio subí una foto a mi estado y vos respondiste. Desde ahí volvimos a hablar y empezamos a conocernos de verdad."
+],
 
-    [
-        "② Una casualidad ✨",
+[
+"③ Nuestro primer mes",
+"No pasó demasiado tiempo hasta que empezamos a sentir algo especial. En menos de dos semanas ya nos habíamos convertido en novios."
+],
 
-        "Pasó un tiempo y dejamos de hablar. Hasta que en julio subí una foto a mi estado y vos respondiste. Desde ahí volvimos a hablar y empezamos a conocernos de verdad."
-    ],
+[
+"④ Tu forma de expresarte",
+"Me encanta la facilidad que tenés para expresar lo que sentís. A veces decís cosas tan lindas que me dejás sin palabras."
+],
 
-    [
-        "③ Nuestro primer mes 💗",
+[
+"⑤ Tu voz",
+"Una de mis cosas favoritas de vos es tu voz. Podría escucharte hablar durante horas."
+],
 
-        "No pasó demasiado tiempo hasta que empezamos a sentir algo especial. En menos de dos semanas ya nos habíamos convertido en novios."
-    ],
+[
+"⑥ Tus ojitos",
+"Tus ojitos lindos tienen un lugar especial en este pequeño universo."
+],
 
-    [
-        "④ Tu forma de expresarte 💌",
+[
+"⑦ Esa sonrisa",
+"Creo que una de las cosas que más me gustan de vos es la manera en la que hacés que se me ilumine el rostro y me pongo contenta cada vez que me decís algo lindo que no esperaba."
+],
 
-        "Me encanta la facilidad que tenés para expresar lo que sentís. A veces decís cosas tan lindas que me dejás sin palabras."
-    ],
-
-    [
-        "⑤ Tu voz 🎧",
-
-        "Una de mis cosas favoritas de vos es tu voz. Podría escucharte hablar durante horas."
-    ],
-
-    [
-        "⑥ Tus ojitos 👀",
-
-        "Tus ojitos lindos tienen un lugar especial en este pequeño universo."
-    ],
-
-    [
-        "⑦ Esa sonrisa 🥹",
-
-        "Creo que una de las cosas que más me gustan de vos es la manera en la que hacés que se me ilumine el rostro y me pongo contenta cada vez que me decís algo lindo que no esperaba."
-    ],
-
-    [
-        "⑧ Nosotros 🤍",
-
-        "Entre mensajes, audios, risas y pequeños momentos, aquí estamos. Un mes puede parecer poquito, pero para mí guarda un montón de recuerdos."
-    ]
+[
+"⑧ Nosotros",
+"Entre mensajes, audios, risas y pequeños momentos, aquí estamos. Un mes puede parecer poquito, pero para mí guarda un montón de recuerdos."
+]
 
 ];
 
 
 /* =========================
-   CREAR UNIVERSO
+   CREAR GALAXIA
 ========================= */
 
 function createUniverse() {
 
     particles = [];
-
-    nebula = [];
-
+    dust = [];
     memories = [];
-
 
     const amount =
         Math.min(
             5000,
             Math.max(
-                2200,
-                Math.floor(
-                    W * H / 170
-                )
+                2500,
+                Math.floor(W * H / 150)
             )
         );
 
 
-    for (
-        let i = 0;
-        i < amount;
-        i++
-    ) {
+    /* ESTRELLAS */
+
+    for (let i = 0; i < amount; i++) {
 
         const angle =
             Math.random() * TAU;
 
         const radius =
-            Math.pow(
-                Math.random(),
-                .55
-            ) *
-            Math.min(W, H) *
-            .65 +
-            30;
+            Math.pow(Math.random(), .55) *
+            Math.min(W, H) * .68 +
+            20;
 
         const spiral =
             angle +
@@ -731,80 +637,71 @@ function createUniverse() {
             y:
                 (Math.random() - .5) *
                 radius *
-                .35,
+                .34,
 
             z:
                 (Math.random() - .5) *
-                1000,
+                1100,
 
             size:
-                .4 +
-                Math.random() *
-                2,
+                .35 +
+                Math.random() * 1.8,
 
             brightness:
                 .25 +
-                Math.random() *
-                .75,
+                Math.random() * .75,
 
             speed:
                 .001 +
-                Math.random() *
-                .004
+                Math.random() * .004
+
         });
 
     }
 
 
-    for (
-        let i = 0;
-        i < 1800;
-        i++
-    ) {
+    /* POLVO CÓSMICO */
 
-        const a =
+    for (let i = 0; i < 2200; i++) {
+
+        const angle =
             Math.random() * TAU;
 
-        const r =
-            Math.pow(
-                Math.random(),
-                .7
-            ) *
-            Math.min(W, H) *
-            .48;
+        const radius =
+            Math.pow(Math.random(), .7) *
+            Math.min(W, H) * .55;
 
 
-        nebula.push({
+        dust.push({
 
             x:
-                Math.cos(a) * r,
+                Math.cos(angle) *
+                radius,
 
             y:
-                Math.sin(a) *
-                r *
-                .25,
+                Math.sin(angle) *
+                radius *
+                .27,
 
             z:
                 (Math.random() - .5) *
-                500,
+                600,
 
             size:
-                1 +
-                Math.random() *
-                3,
+                .4 +
+                Math.random() * 2.5,
 
             phase:
                 Math.random() * TAU
+
         });
 
     }
 
 
-    for (
-        let i = 0;
-        i < 8;
-        i++
-    ) {
+    /* OCHO PLANETITAS */
+
+    for (let i = 0; i < 8; i++) {
 
         memories.push({
 
@@ -812,26 +709,17 @@ function createUniverse() {
                 i / 8 * TAU,
 
             distance:
-                Math.min(W, H) *
-                .34,
+                Math.min(W, H) * .35,
 
             number:
                 i + 1,
 
-            emoji:
-                [
-                    "🌱",
-                    "✨",
-                    "💗",
-                    "💌",
-                    "🎧",
-                    "👀",
-                    "🥹",
-                    "🤍"
-                ][i],
-
             unlocked:
-                i === 0
+                i === 0,
+
+            particles:
+                createPlanetParticles()
+
         });
 
     }
@@ -840,24 +728,56 @@ function createUniverse() {
 
 
 /* =========================
-   ROTACIÓN
+   PARTÍCULAS DE PLANETA
+========================= */
+
+function createPlanetParticles() {
+
+    const result = [];
+
+    for (let i = 0; i < 75; i++) {
+
+        const angle =
+            Math.random() * TAU;
+
+        const radius =
+            Math.random() * 20;
+
+        result.push({
+
+            angle: angle,
+
+            radius: radius,
+
+            speed:
+                .001 +
+                Math.random() * .004,
+
+            size:
+                .5 +
+                Math.random() * 1.7
+
+        });
+
+    }
+
+    return result;
+
+}
+
+
+/* =========================
+   ROTACIÓN 3D
 ========================= */
 
 function rotate3D(p) {
 
     let x = p.x;
-
     let y = p.y;
-
     let z = p.z;
 
-
-    let cosY =
-        Math.cos(rotationY);
-
-    let sinY =
-        Math.sin(rotationY);
-
+    let cosY = Math.cos(rotationY);
+    let sinY = Math.sin(rotationY);
 
     let x2 =
         x * cosY -
@@ -867,13 +787,8 @@ function rotate3D(p) {
         x * sinY +
         z * cosY;
 
-
-    let cosX =
-        Math.cos(rotationX);
-
-    let sinX =
-        Math.sin(rotationX);
-
+    let cosX = Math.cos(rotationX);
+    let sinX = Math.sin(rotationX);
 
     let y2 =
         y * cosX -
@@ -883,13 +798,9 @@ function rotate3D(p) {
         y * sinX +
         z2 * cosX;
 
-
     return {
-
         x: x2,
-
         y: y2,
-
         z: z3
     };
 
@@ -902,18 +813,13 @@ function rotate3D(p) {
 
 function project(p) {
 
-    const r =
-        rotate3D(p);
+    const r = rotate3D(p);
 
-
-    const focal =
-        700 * zoom;
-
+    const focal = 700 * zoom;
 
     const scale =
         focal /
         (focal + r.z);
-
 
     return {
 
@@ -930,71 +836,56 @@ function project(p) {
 
         z:
             r.z
+
     };
 
 }
 
 
 /* =========================
-   ESTRELLA
+   PARTÍCULA
 ========================= */
 
-function star(
+function particleStar(
     x,
     y,
     size,
     brightness
 ) {
 
-    const gradient =
+    const glow =
         ctx.createRadialGradient(
             x,
             y,
             0,
             x,
             y,
-            size * 7
+            size * 8
         );
 
-
-    gradient.addColorStop(
+    glow.addColorStop(
         0,
-        `rgba(
-            255,
-            255,
-            255,
-            ${brightness}
-        )`
+        `rgba(255,255,255,${brightness})`
     );
 
-
-    gradient.addColorStop(
-        .18,
-        `rgba(
-            255,
-            120,
-            235,
-            ${brightness * .8}
-        )`
+    glow.addColorStop(
+        .2,
+        `rgba(255,120,235,${brightness * .7})`
     );
 
-
-    gradient.addColorStop(
+    glow.addColorStop(
         1,
-        "rgba(100,50,255,0)"
+        "rgba(120,50,255,0)"
     );
 
-
-    ctx.fillStyle =
-        gradient;
-
+    ctx.fillStyle = glow;
 
     ctx.beginPath();
 
     ctx.arc(
         x,
         y,
-        size * 7,
+        size * 8,
         0,
         TAU
     );
@@ -1003,23 +894,14 @@ function star(
 
 
     ctx.fillStyle =
-        `rgba(
-            255,
-            255,
-            255,
-            ${brightness}
-        )`;
-
+        `rgba(255,255,255,${brightness})`;
 
     ctx.beginPath();
 
     ctx.arc(
         x,
         y,
-        Math.max(
-            .4,
-            size
-        ),
+        Math.max(.35, size),
         0,
         TAU
     );
@@ -1030,7 +912,7 @@ function star(
 
 
 /* =========================
-   GALAXIA
+   DIBUJAR GALAXIA
 ========================= */
 
 function drawGalaxy() {
@@ -1038,7 +920,6 @@ function drawGalaxy() {
     ctx.fillStyle =
         "rgba(0,0,8,.20)";
 
-
     ctx.fillRect(
         0,
         0,
@@ -1047,38 +928,32 @@ function drawGalaxy() {
     );
 
 
-    const bg =
+    const background =
         ctx.createRadialGradient(
             cx,
             cy,
             0,
             cx,
             cy,
-            Math.max(W, H) * .7
+            Math.max(W,H) * .7
         );
 
-
-    bg.addColorStop(
+    background.addColorStop(
         0,
-        "rgba(110,30,150,.15)"
+        "rgba(100,30,160,.16)"
     );
 
-
-    bg.addColorStop(
-        .35,
-        "rgba(35,15,90,.09)"
+    background.addColorStop(
+        .4,
+        "rgba(35,15,90,.08)"
     );
 
-
-    bg.addColorStop(
+    background.addColorStop(
         1,
         "rgba(0,0,0,0)"
     );
 
-
-    ctx.fillStyle =
-        bg;
-
+    ctx.fillStyle = background;
 
     ctx.fillRect(
         0,
@@ -1088,20 +963,18 @@ function drawGalaxy() {
     );
 
 
-    for (
-        const p of particles
-    ) {
+    /* ESTRELLAS */
+
+    for (const p of particles) {
 
         p.z -=
             p.speed * 8;
 
+        if (p.z < -550)
+            p.z = 550;
 
-        if (p.z < -500)
-            p.z = 500;
 
-
-        const q =
-            project(p);
+        const q = project(p);
 
 
         if (
@@ -1116,33 +989,28 @@ function drawGalaxy() {
         const pulse =
             .65 +
             Math.sin(
-                Date.now() *
-                .001 +
+                Date.now() * .001 +
                 p.x
             ) * .35;
 
 
-        star(
+        particleStar(
             q.x,
             q.y,
             p.size * q.scale,
-            p.brightness *
-            pulse
+            p.brightness * pulse
         );
 
     }
 
 
-    for (
-        const p of nebula
-    ) {
+    /* POLVO */
 
-        p.phase += .005;
+    for (const p of dust) {
 
+        p.phase += .004;
 
-        const q =
-            project(p);
-
+        const q = project(p);
 
         if (
             q.x < 0 ||
@@ -1154,23 +1022,15 @@ function drawGalaxy() {
 
 
         const alpha =
-            .08 +
-            Math.sin(
-                p.phase
-            ) * .06;
+            .07 +
+            Math.sin(p.phase) * .05;
 
 
         ctx.fillStyle =
-            `rgba(
-                255,
-                70,
-                220,
-                ${alpha}
-            )`;
+            `rgba(255,100,230,${alpha})`;
 
 
         ctx.beginPath();
-
 
         ctx.arc(
             q.x,
@@ -1180,13 +1040,12 @@ function drawGalaxy() {
             TAU
         );
 
-
         ctx.fill();
 
     }
 
 
-    /* BRAZOS */
+    /* BRAZOS ESPIRALES */
 
     ctx.save();
 
@@ -1219,23 +1078,18 @@ function drawGalaxy() {
                 i / 500 *
                 TAU *
                 2.5 +
-                arm *
-                TAU / 5;
+                arm * TAU / 5;
 
 
             const r =
                 20 +
                 i / 500 *
-                Math.min(
-                    W,
-                    H
-                ) *
+                Math.min(W,H) *
                 .38;
 
 
             const x =
-                Math.cos(t) *
-                r;
+                Math.cos(t) * r;
 
 
             const y =
@@ -1245,22 +1099,15 @@ function drawGalaxy() {
 
 
             if (i === 0)
-                ctx.moveTo(
-                    x,
-                    y
-                );
+                ctx.moveTo(x,y);
             else
-                ctx.lineTo(
-                    x,
-                    y
-                );
+                ctx.lineTo(x,y);
 
         }
 
 
         ctx.strokeStyle =
-            "rgba(190,80,255,.09)";
-
+            "rgba(190,80,255,.075)";
 
         ctx.lineWidth = 15;
 
@@ -1272,7 +1119,6 @@ function drawGalaxy() {
         ctx.stroke();
 
     }
-
 
     ctx.restore();
 
@@ -1289,43 +1135,34 @@ function drawGalaxy() {
             170
         );
 
-
     core.addColorStop(
         0,
         "rgba(255,255,255,.95)"
     );
-
 
     core.addColorStop(
         .05,
         "rgba(255,220,255,.9)"
     );
 
-
     core.addColorStop(
         .18,
         "rgba(255,70,200,.6)"
     );
-
 
     core.addColorStop(
         .5,
         "rgba(100,40,255,.16)"
     );
 
-
     core.addColorStop(
         1,
         "rgba(0,0,0,0)"
     );
 
-
-    ctx.fillStyle =
-        core;
-
+    ctx.fillStyle = core;
 
     ctx.beginPath();
-
 
     ctx.arc(
         cx,
@@ -1335,188 +1172,199 @@ function drawGalaxy() {
         TAU
     );
 
-
-    ctx.fill();
-
-
-    ctx.fillStyle =
-        "#000";
-
-
-    ctx.beginPath();
-
-
-    ctx.arc(
-        cx,
-        cy,
-        30 * zoom,
-        0,
-        TAU
-    );
-
-
     ctx.fill();
 
 }
 
 
 /* =========================
-   ESTRELLAS NUMERADAS
+   PLANETITAS
 ========================= */
 
 function drawMemories() {
 
-    const t =
+    const time =
         Date.now() * .001;
 
 
     memories.forEach(
         (m, i) => {
 
-            const a =
+            const angle =
                 m.angle +
-                t * .025;
+                time * .018;
 
 
             const x =
                 cx +
-                Math.cos(a) *
+                Math.cos(angle) *
                 m.distance;
 
 
             const y =
                 cy +
-                Math.sin(a) *
+                Math.sin(angle) *
                 m.distance *
                 .55;
 
 
             m.screenX = x;
-
             m.screenY = y;
-
-
-            const isCurrent =
-                i === current;
 
 
             const active =
                 m.unlocked;
 
 
+            const current =
+                i === currentIndex();
+
+
             const pulse =
-                isCurrent
+                current
                 ? 1 +
-                  Math.sin(
-                      t * 3
-                  ) * .12
+                  Math.sin(time * 3) *
+                  .13
                 : 1;
 
 
-            const glow =
+            /* HALO */
+
+            const halo =
                 ctx.createRadialGradient(
                     x,
                     y,
                     0,
                     x,
                     y,
-                    isCurrent
-                    ? 55
-                    : 35
+                    current ? 75 : 50
                 );
 
 
-            if (active) {
+            halo.addColorStop(
+                0,
+                active
+                ? "rgba(255,100,230,.55)"
+                : "rgba(100,100,150,.08)"
+            );
 
-                glow.addColorStop(
+
+            halo.addColorStop(
+                1,
+                "rgba(100,30,255,0)"
+            );
+
+
+            ctx.fillStyle = halo;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                x,
+                y,
+                current ? 75 : 50,
+                0,
+                TAU
+            );
+
+            ctx.fill();
+
+
+            /* PARTÍCULAS DEL PLANETA */
+
+            for (
+                const p of m.particles
+            ) {
+
+                p.angle +=
+                    p.speed *
+                    (active ? 1.8 : .5);
+
+
+                const px =
+                    x +
+                    Math.cos(p.angle) *
+                    p.radius *
+                    pulse;
+
+
+                const py =
+                    y +
+                    Math.sin(p.angle) *
+                    p.radius *
+                    .72 *
+                    pulse;
+
+
+                ctx.fillStyle =
+                    active
+                    ? "rgba(255,220,255,.9)"
+                    : "rgba(130,130,150,.25)";
+
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    px,
+                    py,
+                    p.size,
                     0,
-                    isCurrent
-                    ? "rgba(255,100,235,.9)"
-                    : "rgba(255,80,220,.45)"
+                    TAU
                 );
 
-            } else {
-
-                glow.addColorStop(
-                    0,
-                    "rgba(100,100,130,.15)"
-                );
+                ctx.fill();
 
             }
 
 
-            glow.addColorStop(
-                1,
-                "rgba(130,50,255,0)"
+            /* ANILLO DEL PLANETA */
+
+            ctx.save();
+
+            ctx.translate(
+                x,
+                y
             );
 
-
-            ctx.fillStyle =
-                glow;
-
+            ctx.rotate(
+                -.35
+            );
 
             ctx.beginPath();
 
-
-            ctx.arc(
-                x,
-                y,
-                55 * pulse,
+            ctx.ellipse(
+                0,
+                0,
+                32 * pulse,
+                9 * pulse,
+                0,
                 0,
                 TAU
             );
-
-
-            ctx.fill();
-
-
-            /* CÍRCULO */
-
-            ctx.beginPath();
-
-
-            ctx.arc(
-                x,
-                y,
-                27 * pulse,
-                0,
-                TAU
-            );
-
-
-            ctx.fillStyle =
-                active
-                ? "rgba(15,8,30,.85)"
-                : "rgba(20,20,30,.75)";
-
-
-            ctx.fill();
 
 
             ctx.strokeStyle =
                 active
-                ? "rgba(255,180,255,.75)"
-                : "rgba(130,130,150,.25)";
+                ? "rgba(255,170,245,.5)"
+                : "rgba(130,130,150,.16)";
 
 
             ctx.lineWidth =
-                isCurrent
-                ? 2
-                : 1;
+                current ? 1.7 : 1;
 
 
             ctx.stroke();
 
+            ctx.restore();
 
-            /* NÚMERO */
+
+            /* NÚMERO PEQUEÑO */
 
             ctx.font =
-                "bold 15px Arial";
-
+                "8px Arial";
 
             ctx.textAlign =
                 "center";
-
 
             ctx.textBaseline =
                 "middle";
@@ -1524,8 +1372,8 @@ function drawMemories() {
 
             ctx.fillStyle =
                 active
-                ? "white"
-                : "rgba(150,150,160,.45)";
+                ? "rgba(255,255,255,.9)"
+                : "rgba(150,150,160,.35)";
 
 
             ctx.fillText(
@@ -1535,17 +1383,60 @@ function drawMemories() {
             );
 
 
-            /* EMOJI PEQUEÑO */
+            /* PEQUEÑA ESTRELLA DE REFERENCIA */
 
-            ctx.font =
-                "14px serif";
+            if (current) {
 
+                ctx.strokeStyle =
+                    "rgba(255,255,255,.65)";
 
-            ctx.fillText(
-                m.emoji,
-                x,
-                y - 39
-            );
+                ctx.lineWidth = 1;
+
+                ctx.beginPath();
+
+                ctx.moveTo(
+                    x - 42,
+                    y
+                );
+
+                ctx.lineTo(
+                    x - 31,
+                    y
+                );
+
+                ctx.moveTo(
+                    x + 31,
+                    y
+                );
+
+                ctx.lineTo(
+                    x + 42,
+                    y
+                );
+
+                ctx.moveTo(
+                    x,
+                    y - 42
+                );
+
+                ctx.lineTo(
+                    x,
+                    y - 31
+                );
+
+                ctx.moveTo(
+                    x,
+                    y + 31
+                );
+
+                ctx.lineTo(
+                    x,
+                    y + 42
+                );
+
+                ctx.stroke();
+
+            }
 
         }
     );
@@ -1553,8 +1444,15 @@ function drawMemories() {
 }
 
 
+function currentIndex() {
+
+    return current;
+
+}
+
+
 /* =========================
-   CLICK EN ESTRELLA
+   TOCAR PLANETA
 ========================= */
 
 function checkMemory(
@@ -1565,9 +1463,8 @@ function checkMemory(
     let selected =
         null;
 
-
     let closest =
-        60;
+        55;
 
 
     memories.forEach(
@@ -1610,52 +1507,33 @@ function checkMemory(
 
 
     document
-        .getElementById(
-            "memoryTitle"
-        )
+        .getElementById("memoryTitle")
         .textContent =
         texts[selected][0];
 
 
     document
-        .getElementById(
-            "memoryText"
-        )
+        .getElementById("memoryText")
         .textContent =
         texts[selected][1];
 
 
     document
-        .getElementById(
-            "memory"
-        )
-        .classList.add(
-            "show"
-        );
-
-
-    completed =
-        Math.max(
-            completed,
-            selected + 1
-        );
+        .getElementById("memory")
+        .classList.add("show");
 
 }
 
 
 /* =========================
-   SIGUIENTE ESTRELLA
+   SIGUIENTE
 ========================= */
 
 function nextStar() {
 
     document
-        .getElementById(
-            "memory"
-        )
-        .classList.remove(
-            "show"
-        );
+        .getElementById("memory")
+        .classList.remove("show");
 
 
     if (
@@ -1663,35 +1541,17 @@ function nextStar() {
         memories.length - 1
     ) {
 
-        memories[current]
-            .unlocked =
-            true;
-
-
         current++;
 
-
         memories[current]
-            .unlocked =
-            true;
+            .unlocked = true;
 
 
         document
-            .getElementById(
-                "progress"
-            )
+            .getElementById("progress")
             .textContent =
             "ESTRELLA " +
-            [
-                "①",
-                "②",
-                "③",
-                "④",
-                "⑤",
-                "⑥",
-                "⑦",
-                "⑧"
-            ][current];
+            current;
 
     }
 
@@ -1757,7 +1617,6 @@ canvas.addEventListener(
         lastX =
             e.clientX;
 
-
         lastY =
             e.clientY;
 
@@ -1809,7 +1668,7 @@ canvas.addEventListener(
 
     },
     {
-        passive: false
+        passive:false
     }
 );
 
@@ -1818,8 +1677,7 @@ canvas.addEventListener(
    ZOOM CELULAR
 ========================= */
 
-let previousDistance =
-    0;
+let previousDistance = 0;
 
 
 canvas.addEventListener(
@@ -1850,7 +1708,7 @@ canvas.addEventListener(
 
     },
     {
-        passive: false
+        passive:false
     }
 );
 
@@ -1905,13 +1763,13 @@ canvas.addEventListener(
 
     },
     {
-        passive: false
+        passive:false
     }
 );
 
 
 /* =========================
-   BOTÓN CONTINUAR
+   BOTONES
 ========================= */
 
 document
@@ -1920,24 +1778,14 @@ document
     nextStar;
 
 
-/* =========================
-   CARTA
-========================= */
-
 document
-    .getElementById(
-        "letterButton"
-    )
+    .getElementById("letterButton")
     .onclick =
     () => {
 
         document
-            .getElementById(
-                "letter"
-            )
-            .classList.add(
-                "open"
-            );
+            .getElementById("letter")
+            .classList.add("open");
 
     };
 
@@ -1948,12 +1796,8 @@ document
     () => {
 
         document
-            .getElementById(
-                "letter"
-            )
-            .classList.remove(
-                "open"
-            );
+            .getElementById("letter")
+            .classList.remove("open");
 
     };
 
@@ -1963,15 +1807,10 @@ document
 ========================= */
 
 const audio =
-    document.getElementById(
-        "audio"
-    );
-
+    document.getElementById("audio");
 
 const music =
-    document.getElementById(
-        "music"
-    );
+    document.getElementById("music");
 
 
 async function playMusic() {
@@ -1979,7 +1818,6 @@ async function playMusic() {
     try {
 
         await audio.play();
-
 
         music.textContent =
             "❚❚ BLUE — YUNG KAI";
@@ -2009,7 +1847,6 @@ music.onclick =
 
             audio.pause();
 
-
             music.textContent =
                 "▶ BLUE — YUNG KAI";
 
@@ -2023,19 +1860,13 @@ music.onclick =
 ========================= */
 
 document
-    .getElementById(
-        "enter"
-    )
+    .getElementById("enter")
     .onclick =
     () => {
 
         document
-            .getElementById(
-                "intro"
-            )
-            .classList.add(
-                "hide"
-            );
+            .getElementById("intro")
+            .classList.add("hide");
 
 
         playMusic();
@@ -2044,7 +1875,7 @@ document
 
 
 /* =========================
-   TAMAÑO
+   REDIMENSIONAR
 ========================= */
 
 function resize() {
