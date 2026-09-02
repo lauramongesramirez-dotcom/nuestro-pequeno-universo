@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Universos para Dos ✨</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#02010a;
+    font-family:Georgia,serif;
+    color:white;
+}
+
+canvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    pointer-events:none;
+    z-index:5;
+    padding:30px;
+}
+
+.content{
+    max-width:900px;
+    transition:opacity 1s,transform 1s;
+}
+
+.content.hidden{
+    opacity:0;
+    transform:scale(.9);
+}
+
+.small{
+    font-family:Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:6px;
+    opacity:.6;
+    margin-bottom:25px;
+}
+
+h1{
+    margin:0;
+    font-size:clamp(45px,10vw,100px);
+    line-height:.95;
+    text-shadow:
+        0 0 15px #fff,
+        0 0 35px #9d55ff,
+        0 0 80px #632cff;
+}
+
+h2{
+    font-size:clamp(30px,7vw,70px);
+    margin:0;
+    line-height:1.05;
+    text-shadow:
+        0 0 20px #fff,
+        0 0 45px #69caff;
+}
+
+p{
+    font-size:clamp(17px,3vw,28px);
+    line-height:1.6;
+    opacity:.85;
+}
+
+.items{
+    margin-top:30px;
+    font-family:Arial,sans-serif;
+    font-size:clamp(16px,3vw,25px);
+    line-height:2;
+}
+
+.item{
+    opacity:.9;
+}
+
+.final{
+    font-size:clamp(18px,4vw,32px);
+    margin-top:35px;
+    color:#bdeaff;
+    text-shadow:0 0 20px #48cfff;
+}
+
+#progress{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    width:150px;
+    height:2px;
+    background:#ffffff25;
+    z-index:10;
+}
+
+#bar{
+    height:100%;
+    width:0%;
+    background:#8fdfff;
+    box-shadow:0 0 12px #62d8ff;
+}
+
+#sound{
+    position:fixed;
+    top:18px;
+    right:18px;
+    z-index:20;
+    border:1px solid #ffffff30;
+    background:#080714aa;
+    color:white;
+    border-radius:30px;
+    padding:10px 15px;
+    font-family:Arial,sans-serif;
+    backdrop-filter:blur(10px);
+}
+
+#start{
+    position:fixed;
+    inset:0;
+    z-index:30;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle at center,
+        #32105b 0%,
+        #0b0618 35%,
+        #02010a 80%);
+}
+
+.startBox{
+    text-align:center;
+    width:90%;
+    max-width:650px;
+}
+
+.startBox button{
+    margin-top:25px;
+    border:1px solid #ffffff40;
+    background:#ffffff12;
+    color:white;
+    padding:14px 28px;
+    border-radius:30px;
+    font-size:16px;
+    box-shadow:0 0 35px #6e3dff66;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="space"></canvas>
+
+<div id="start">
+    <div class="startBox">
+        <div class="small">UNA IDEA DIFERENTE</div>
+
+        <h1>Regalá<br>un universo 🌌</h1>
+
+        <p>
+            Una experiencia creada especialmente
+            para esa persona que amás.
+        </p>
+
+        <button onclick="startExperience()">
+            ✨ Descubrir
+        </button>
+    </div>
+</div>
+
+<div class="overlay">
+
+    <div id="content" class="content">
+
+        <div id="small" class="small"></div>
+
+        <h2 id="title"></h2>
+
+        <p id="text"></p>
+
+        <div id="items" class="items"></div>
+
+        <div id="final" class="final"></div>
+
+    </div>
+
+</div>
+
+<div id="progress">
+    <div id="bar"></div>
+</div>
+
+<button id="sound" onclick="toggleSound()">
+    ♪ Sonido
+</button>
+
+<script>
+
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
+
+let W,H,cx,cy;
+
+let stars=[];
+let particles=[];
+
+let rotation=0;
+let running=false;
+
+let startTime=0;
+
+const scenes=[
+
+{
+    duration:3500,
+    small:"¿QUÉ LE REGALARÍAS?",
+    title:"Algo más que<br>un regalo…",
+    text:""
+},
+
+{
+    duration:4000,
+    small:"PARA ESA PERSONA ESPECIAL",
+    title:"¿Y si pudieras<br>regalarle un universo?",
+    text:""
+},
+
+{
+    duration:5000,
+    small:"CREAMOS EXPERIENCIAS DIGITALES",
+    title:"Hechas<br>especialmente para ustedes",
+    text:"",
+    items:[
+        "✦ Sus nombres",
+        "✦ Sus recuerdos",
+        "✦ Sus fotos",
+        "✦ Su canción",
+        "✦ Su historia"
+    ]
+},
+
+{
+    duration:3500,
+    small:"TODO EN UN SOLO LUGAR",
+    title:"Interactivo.<br>Romántico.<br>Único.",
+    text:"Una galaxia llena de pequeños detalles para descubrir."
+},
+
+{
+    duration:4000,
+    small:"PARA ANIVERSARIOS · CUMPLEAÑOS · SORPRESAS",
+    title:"Tu historia.<br>Su universo. 🌌",
+    text:"",
+    final:"¿Querés crear el suyo? 💌"
+}
+
+];
+
+let sceneIndex=0;
+let sceneStart=0;
+
+function resize(){
+
+    W=canvas.width=innerWidth;
+    H=canvas.height=innerHeight;
+
+    cx=W/2;
+    cy=H/2;
+
+    createStars();
+    createParticles();
+}
+
+window.addEventListener("resize",resize);
+
+function createStars(){
+
+    stars=[];
+
+    for(let i=0;i<1800;i++){
+
+        const angle=Math.random()*Math.PI*2;
+
+        const radius=
+            Math.pow(Math.random(),.55)*
+            Math.max(W,H)*.75;
+
+        stars.push({
+
+            x:Math.cos(angle)*radius,
+
+            y:Math.sin(angle)*radius*.55,
+
+            z:(Math.random()-.5)*1300,
+
+            size:.3+Math.random()*1.8,
+
+            twinkle:Math.random()*Math.PI*2
+
+        });
+    }
+}
+
+function createParticles(){
+
+    particles=[];
+
+    for(let i=0;i<1000;i++){
+
+        const angle=Math.random()*Math.PI*2;
+
+        const radius=
+            Math.random()*Math.min(W,H)*.55;
+
+        particles.push({
+
+            angle,
+
+            radius,
+
+            speed:.001+
+                Math.random()*.004,
+
+            size:.5+
+                Math.random()*2
+
+        });
+    }
+}
+
+function drawBackground(){
+
+    ctx.fillStyle="rgba(2,1,10,.25)";
+    ctx.fillRect(0,0,W,H);
+
+    const nebula=
+        ctx.createRadialGradient(
+            cx,
+            cy,
+            0,
+            cx,
+            cy,
+            Math.max(W,H)*.7
+        );
+
+    nebula.addColorStop(
+        0,
+        "rgba(110,40,190,.18)"
+    );
+
+    nebula.addColorStop(
+        .35,
+        "rgba(70,20,140,.08)"
+    );
+
+    nebula.addColorStop(
+        1,
+        "rgba(0,0,0,0)"
+    );
+
+    ctx.fillStyle=nebula;
+
+    ctx.fillRect(0,0,W,H);
+}
+
+function drawStars(time){
+
+    for(const s of stars){
+
+        s.z-=1;
+
+        if(s.z<-650)
+            s.z=650;
+
+        const perspective=
+            700/(700+s.z);
+
+        let x=
+            cx+
+            s.x*
+            perspective;
+
+        let y=
+            cy+
+            s.y*
+            perspective;
+
+        const pulse=
+            .55+
+            Math.sin(
+                time*.002+
+                s.twinkle
+            )*.45;
+
+        const size=
+            s.size*
+            perspective;
+
+        ctx.fillStyle=
+            `rgba(235,235,255,${pulse})`;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+    }
+}
+
+function drawGalaxy(time){
+
+    rotation+=.0018;
+
+    ctx.save();
+
+    ctx.translate(cx,cy);
+
+    ctx.rotate(rotation);
+
+    for(let arm=0;arm<5;arm++){
+
+        for(let i=0;i<420;i++){
+
+            const radius=
+                20+
+                i*
+                Math.min(W,H)/
+                900;
+
+            const angle=
+                arm*
+                Math.PI*2/5+
+                radius*.018;
+
+            const x=
+                Math.cos(angle)*
+                radius;
+
+            const y=
+                Math.sin(angle)*
+                radius*.38;
+
+            const alpha=
+                .03+
+                i/420*.15;
+
+            ctx.fillStyle=
+                `rgba(185,100,255,${alpha})`;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                x,
+                y,
+                1.2,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+        }
+    }
+
+    ctx.restore();
+
+    for(const p of particles){
+
+        p.angle+=p.speed;
+
+        const a=
+            p.angle+
+            rotation*1.5;
+
+        const x=
+            cx+
+            Math.cos(a)*
+            p.radius;
+
+        const y=
+            cy+
+            Math.sin(a)*
+            p.radius*.48;
+
+        ctx.fillStyle=
+            "rgba(110,205,255,.55)";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            p.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+    }
+
+    const glow=
+        ctx.createRadialGradient(
+            cx,
+            cy,
+            0,
+            cx,
+            cy,
+            230
+        );
+
+    glow.addColorStop(
+        0,
+        "rgba(255,255,255,.75)"
+    );
+
+    glow.addColorStop(
+        .08,
+        "rgba(120,210,255,.35)"
+    );
+
+    glow.addColorStop(
+        .3,
+        "rgba(140,50,255,.15)"
+    );
+
+    glow.addColorStop(
+        1,
+        "rgba(0,0,0,0)"
+    );
+
+    ctx.fillStyle=glow;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        cx,
+        cy,
+        230,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fill();
+}
+
+function updateScene(){
+
+    if(!running)
+        return;
+
+    const now=performance.now();
+
+    if(
+        now-sceneStart>
+        scenes[sceneIndex].duration
+    ){
+
+        sceneIndex++;
+
+        if(sceneIndex>=scenes.length){
+
+            sceneIndex=0;
+
+        }
+
+        sceneStart=now;
+
+        showScene();
+    }
+
+    const elapsed=
+        now-sceneStart;
+
+    const progress=
+        Math.min(
+            1,
+            elapsed/
+            scenes[sceneIndex].duration
+        );
+
+    document.getElementById("bar")
+        .style.width=
+        (progress*100)+"%";
+}
+
+function showScene(){
+
+    const scene=scenes[sceneIndex];
+
+    const content=
+        document.getElementById("content");
+
+    content.classList.add("hidden");
+
+    setTimeout(()=>{
+
+        document.getElementById("small")
+            .textContent=scene.small;
+
+        document.getElementById("title")
+            .innerHTML=scene.title;
+
+        document.getElementById("text")
+            .textContent=scene.text||"";
+
+        const items=
+            document.getElementById("items");
+
+        items.innerHTML="";
+
+        if(scene.items){
+
+            scene.items.forEach(
+                item=>{
+
+                    const div=
+                        document.createElement("div");
+
+                    div.className="item";
+
+                    div.textContent=item;
+
+                    items.appendChild(div);
+                }
+            );
+        }
+
+        document.getElementById("final")
+            .textContent=
+            scene.final||"";
+
+        content.classList.remove("hidden");
+
+    },500);
+}
+
+function animate(time){
+
+    drawBackground();
+    drawStars(time);
+    drawGalaxy(time);
+    updateScene();
+
+    requestAnimationFrame(animate);
+}
+
+function startExperience(){
+
+    document.getElementById("start")
+        .style.display="none";
+
+    running=true;
+
+    startTime=performance.now();
+    sceneStart=startTime;
+
+    showScene();
+}
+
+function toggleSound(){
+
+    const button=
+        document.getElementById("sound");
+
+    if(!window.speechSynthesis)
+        return;
+
+    if(
+        window.speechSynthesis.speaking
+    ){
+
+        window.speechSynthesis.cancel();
+
+        button.textContent="♪ Sonido";
+
+    }else{
+
+        const text=
+        "Regalá un universo. " +
+        "Creamos experiencias digitales " +
+        "personalizadas para parejas, " +
+        "con sus nombres, recuerdos, fotos, " +
+        "canciones y su historia.";
+
+        const voice=
+            new SpeechSynthesisUtterance(text);
+
+        voice.lang="es-ES";
+
+        voice.rate=.9;
+
+        voice.pitch=1.05;
+
+        window.speechSynthesis.speak(voice);
+
+        button.textContent="❚❚ Sonido";
+    }
+}
+
+resize();
+
+requestAnimationFrame(animate);
+
+</script>
+
+</body>
+</html>
