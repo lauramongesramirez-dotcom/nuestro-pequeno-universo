@@ -2,1220 +2,903 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Impostora</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>La Impostora — Frutinovela</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-    margin:0;
-    background:#05050c;
-    color:white;
-    font-family:Georgia,serif;
-    overflow-x:hidden;
+  margin:0;
+  background:#05050b;
+  color:white;
+  font-family:Georgia,serif;
+  overflow:hidden;
 }
 
-/* =========================
-   FONDO
-========================= */
-
-#app{
-    min-height:100vh;
-    position:relative;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at 50% 20%, #252647 0%, #101024 35%, #05050c 75%);
+#game{
+  width:100vw;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 25%,#30304f 0%,#11111f 45%,#050509 100%);
 }
 
-.stars{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    overflow:hidden;
-}
+/* ESTRELLAS */
 
 .star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    border-radius:50%;
-    animation:twinkle 2s infinite alternate;
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite alternate;
+  opacity:.7;
 }
 
 @keyframes twinkle{
-    from{opacity:.15}
-    to{opacity:1}
+  from{opacity:.15}
+  to{opacity:1}
 }
 
-/* =========================
-   CABECERA
-========================= */
-
-.header{
-    position:relative;
-    z-index:5;
-    text-align:center;
-    padding:25px 15px 8px;
-}
-
-.header h1{
-    margin:0;
-    font-size:clamp(28px,7vw,55px);
-    letter-spacing:8px;
-    font-weight:normal;
-}
-
-.header p{
-    margin:8px 0 0;
-    font-family:Arial,sans-serif;
-    font-size:10px;
-    letter-spacing:4px;
-    color:#aaaac0;
-}
-
-/* =========================
-   ESCENA
-========================= */
+/* ESCENARIO */
 
 .scene{
-    width:min(1100px,94%);
-    height:540px;
-    margin:10px auto;
-    position:relative;
-    border:1px solid #292942;
-    border-radius:28px;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at 50% 35%, #202142, #090912 72%);
-    box-shadow:
-        0 20px 80px #000b,
-        inset 0 0 60px #0008;
+  position:absolute;
+  inset:0;
 }
 
-/* Luna */
-
-.moon{
-    position:absolute;
-    width:100px;
-    height:100px;
-    right:8%;
-    top:8%;
-    border-radius:50%;
-    background:#e8edff;
-    box-shadow:0 0 40px #b8c9ff;
+.wall{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      #0d0d19 0%,
+      #222039 18%,
+      #302d49 50%,
+      #222039 82%,
+      #0d0d19 100%
+    );
 }
 
-/* =========================
-   ESCENARIO / CASA
-========================= */
-
-.room{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:230px;
-    background:
-        linear-gradient(#16162a,#090911);
-    border-top:1px solid #2d2d49;
+.floor{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:30%;
+  background:
+    linear-gradient(#332b35,#15131c);
+  transform:perspective(500px) rotateX(25deg);
+  transform-origin:bottom;
 }
+
+/* VENTANA */
 
 .window{
-    position:absolute;
-    left:8%;
-    bottom:70px;
-    width:150px;
-    height:150px;
-    border:6px solid #24243c;
-    background:
-        linear-gradient(135deg,#101c43,#17285c);
-    box-shadow:0 0 25px #263c8055;
+  position:absolute;
+  width:42%;
+  height:42%;
+  left:29%;
+  top:10%;
+  border:12px solid #15131d;
+  background:
+    linear-gradient(#10182d,#263b61);
+  box-shadow:
+    0 0 50px #7b8dcc44;
 }
 
 .window:before{
-    content:"";
-    position:absolute;
-    left:50%;
-    top:0;
-    bottom:0;
-    width:3px;
-    background:#292945;
+  content:"";
+  position:absolute;
+  width:8px;
+  height:100%;
+  left:50%;
+  background:#15131d;
 }
 
 .window:after{
-    content:"";
-    position:absolute;
-    top:50%;
-    left:0;
-    right:0;
-    height:3px;
-    background:#292945;
+  content:"";
+  position:absolute;
+  height:8px;
+  width:100%;
+  top:50%;
+  background:#15131d;
 }
 
-/* =========================
-   PERSONAJE
-========================= */
+.rain{
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      110deg,
+      transparent 0 25px,
+      #b9d9ff22 26px 28px,
+      transparent 29px 50px
+    );
+  animation:rain 1s linear infinite;
+}
+
+@keyframes rain{
+  from{transform:translateY(-30px)}
+  to{transform:translateY(30px)}
+}
+
+/* PERSONAJES */
 
 .character{
-    position:absolute;
-    bottom:55px;
-    left:50%;
-    width:190px;
-    height:370px;
-    transform:translateX(-50%);
-    transition:
-        left .9s ease,
-        opacity .6s ease,
-        transform .6s ease;
-    z-index:3;
-}
-
-.character.walk{
-    animation:walking .65s infinite alternate;
-}
-
-@keyframes walking{
-    from{transform:translateX(-50%) translateY(0)}
-    to{transform:translateX(-50%) translateY(-7px)}
+  position:absolute;
+  bottom:15%;
+  width:180px;
+  height:440px;
+  transition:
+    left .8s ease,
+    transform .6s ease,
+    opacity .6s ease;
+  transform-origin:bottom center;
 }
 
 .character.hidden{
-    opacity:0;
-    pointer-events:none;
+  opacity:0;
+  transform:translateY(100px) scale(.7);
 }
 
 .character.talking{
-    animation:talk .45s infinite alternate;
+  animation:talking .35s infinite alternate;
 }
 
-@keyframes talk{
-    from{transform:translateX(-50%) scale(1)}
-    to{transform:translateX(-50%) scale(1.015)}
+@keyframes talking{
+  from{transform:translateY(0)}
+  to{transform:translateY(-7px)}
 }
 
-/* Aura */
-
-.aura{
-    position:absolute;
-    width:190px;
-    height:300px;
-    top:20px;
-    border-radius:50%;
-    filter:blur(35px);
-    opacity:.35;
-    animation:aura 3s infinite alternate;
-}
-
-@keyframes aura{
-    from{opacity:.18;transform:scale(.9)}
-    to{opacity:.5;transform:scale(1.08)}
-}
-
-/* Cabeza */
-
-.head{
-    position:absolute;
-    width:105px;
-    height:125px;
-    left:42px;
-    top:0;
-    clip-path:polygon(
-        50% 0,
-        90% 25%,
-        80% 80%,
-        50% 100%,
-        20% 80%,
-        10% 25%
-    );
-    box-shadow:0 0 35px currentColor;
-    animation:float 3s ease-in-out infinite;
-}
-
-@keyframes float{
-    50%{transform:translateY(-6px)}
-}
-
-/* Brillo */
-
-.head:after{
-    content:"";
-    position:absolute;
-    width:20px;
-    height:75px;
-    left:25px;
-    top:18px;
-    background:#ffffff45;
-    transform:rotate(15deg);
-}
-
-/* Ojos */
-
-.eye{
-    position:absolute;
-    width:18px;
-    height:9px;
-    border-bottom:4px solid white;
-    border-radius:50%;
-    top:58px;
-    z-index:4;
-}
-
-.eye.left{left:22px}
-.eye.right{right:22px}
-
-.character.blink .eye{
-    height:2px;
-}
-
-/* Boca */
-
-.mouth{
-    position:absolute;
-    width:23px;
-    height:10px;
-    left:41px;
-    top:84px;
-    border-bottom:3px solid white;
-    border-radius:50%;
-    z-index:4;
-}
-
-/* Cuerpo */
+/* CUERPO */
 
 .body{
-    position:absolute;
-    top:112px;
-    left:47px;
-    width:96px;
-    height:145px;
-    clip-path:polygon(
-        25% 0,
-        75% 0,
-        100% 100%,
-        0 100%
-    );
+  position:absolute;
+  width:95px;
+  height:185px;
+  left:42px;
+  bottom:0;
+  border-radius:50px 50px 25px 25px;
+  background:var(--body);
+  border:2px solid #ffffff44;
+  box-shadow:
+    inset 10px 0 20px #ffffff22,
+    inset -15px -10px 20px #0005;
 }
 
-/* Brazos */
+/* CABEZA DE CRISTAL */
+
+.gem{
+  position:absolute;
+  width:135px;
+  height:155px;
+  left:22px;
+  top:15px;
+  background:var(--gem);
+  clip-path:
+    polygon(
+      50% 0,
+      87% 22%,
+      100% 65%,
+      70% 100%,
+      30% 100%,
+      0 65%,
+      13% 22%
+    );
+  filter:
+    drop-shadow(0 0 18px var(--glow));
+}
+
+.gem:after{
+  content:"";
+  position:absolute;
+  inset:8px;
+  background:
+    linear-gradient(
+      130deg,
+      #ffffffaa,
+      transparent 25%,
+      #0002 70%,
+      #ffffff22
+    );
+  clip-path:inherit;
+}
+
+/* CARA */
+
+.eye{
+  position:absolute;
+  top:78px;
+  width:15px;
+  height:20px;
+  background:#11121c;
+  border-radius:50%;
+  z-index:4;
+}
+
+.eye.left{left:63px}
+.eye.right{left:105px}
+
+.eye:after{
+  content:"";
+  position:absolute;
+  width:4px;
+  height:5px;
+  background:white;
+  border-radius:50%;
+  top:4px;
+  left:4px;
+}
+
+.mouth{
+  position:absolute;
+  z-index:4;
+  top:111px;
+  left:83px;
+  width:25px;
+  height:9px;
+  border-bottom:4px solid #11121c;
+  border-radius:50%;
+}
+
+.talking .mouth{
+  animation:mouth .2s infinite alternate;
+}
+
+@keyframes mouth{
+  from{height:5px}
+  to{height:18px}
+}
+
+/* BRAZOS */
 
 .arm{
-    position:absolute;
-    width:15px;
-    height:100px;
-    top:125px;
-    border-radius:20px;
-    transition:.3s;
+  position:absolute;
+  bottom:105px;
+  width:20px;
+  height:120px;
+  border-radius:20px;
+  background:var(--body);
+  border:2px solid #ffffff33;
+  transform-origin:top center;
 }
 
 .arm.left{
-    left:27px;
-    transform:rotate(15deg);
+  left:27px;
+  transform:rotate(15deg);
 }
 
 .arm.right{
-    right:27px;
-    transform:rotate(-15deg);
+  right:25px;
+  transform:rotate(-15deg);
 }
 
-.character.gesture .arm.left{
-    transform:rotate(-35deg);
+.gesture .arm.right{
+  animation:gesture .7s infinite alternate;
 }
 
-.character.gesture .arm.right{
-    transform:rotate(35deg);
+@keyframes gesture{
+  from{transform:rotate(-15deg)}
+  to{transform:rotate(-55deg)}
 }
 
-/* Piernas */
+/* PIERNAS */
 
 .leg{
-    position:absolute;
-    width:16px;
-    height:90px;
-    top:245px;
-    border-radius:20px;
+  position:absolute;
+  bottom:-35px;
+  width:28px;
+  height:70px;
+  border-radius:20px;
+  background:#242537;
 }
 
-.leg.left{left:67px}
-.leg.right{right:67px}
+.leg.left{left:58px}
+.leg.right{left:96px}
 
-/* =========================
-   COLORES
-========================= */
+/* COLORES */
 
-.zafiro .aura{background:#198cff}
-.zafiro .head{background:linear-gradient(135deg,#73d8ff,#146bd0,#061e59);color:#49bfff}
-.zafiro .body{background:linear-gradient(90deg,#092d69,#248be0,#092d69)}
-.zafiro .arm,
-.zafiro .leg{background:#1672c9}
-
-.rubi .aura{background:#ff173d}
-.rubi .head{background:linear-gradient(135deg,#ff6575,#bd1537,#4e0719);color:#ff405b}
-.rubi .body{background:linear-gradient(90deg,#711126,#e3264d,#711126)}
-.rubi .arm,
-.rubi .leg{background:#c91d42}
-
-.diamante .aura{background:#d9ecff}
-.diamante .head{background:linear-gradient(135deg,#fff,#dce9ff,#8fa6c5);color:white}
-.diamante .body{background:linear-gradient(90deg,#9daec5,#eef6ff,#9daec5)}
-.diamante .arm,
-.diamante .leg{background:#c6d7ea}
-
-.onix .aura{background:#725cff}
-.onix .head{background:linear-gradient(135deg,#49475a,#12121b,#030306);color:#796aff}
-.onix .body{background:linear-gradient(90deg,#11101b,#383346,#11101b)}
-.onix .arm,
-.onix .leg{background:#272331}
-
-.cuarzo .aura{background:#ff7fc7}
-.cuarzo .head{background:linear-gradient(135deg,#ffd8ee,#ee94c6,#934d85);color:#ff9bd4}
-.cuarzo .body{background:linear-gradient(90deg,#91466f,#e28abb,#91466f)}
-.cuarzo .arm,
-.cuarzo .leg{background:#c26a9e}
-
-/* =========================
-   NOMBRE
-========================= */
-
-.characterName{
-    position:absolute;
-    top:390px;
-    width:100%;
-    text-align:center;
-    font-size:14px;
-    letter-spacing:4px;
+.zafiro{
+  --gem:#397cff;
+  --body:#28458f;
+  --glow:#528fff;
 }
 
-/* =========================
-   DIÁLOGO
-========================= */
-
-.dialogueBox{
-    width:min(900px,92%);
-    margin:15px auto 25px;
-    padding:22px 25px;
-    background:#101020ee;
-    border:1px solid #30304a;
-    border-radius:20px;
-    position:relative;
-    z-index:10;
-    box-shadow:0 10px 40px #0008;
+.rubi{
+  --gem:#df3d58;
+  --body:#782039;
+  --glow:#ff4967;
 }
 
-.chapter{
-    text-align:center;
-    color:#7778a0;
-    font-family:Arial,sans-serif;
-    font-size:10px;
-    letter-spacing:3px;
-    margin-bottom:10px;
+.diamante{
+  --gem:#ecfbff;
+  --body:#b7d0df;
+  --glow:#dfffff;
+}
+
+.onix{
+  --gem:#303443;
+  --body:#171a28;
+  --glow:#747b94;
+}
+
+.cuarzo{
+  --gem:#e9b7dc;
+  --body:#a65d91;
+  --glow:#f1bde5;
+}
+
+/* NOMBRES */
+
+.name{
+  position:absolute;
+  bottom:-65px;
+  width:100%;
+  text-align:center;
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  font-weight:bold;
+  letter-spacing:3px;
+}
+
+/* DIÁLOGO */
+
+.dialogue{
+  position:absolute;
+  z-index:20;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  width:min(900px,92vw);
+  min-height:150px;
+  padding:20px 24px;
+  border-radius:22px;
+  background:#090913eF;
+  border:1px solid #ffffff35;
+  box-shadow:0 15px 50px #000b;
+  backdrop-filter:blur(10px);
 }
 
 .speaker{
-    color:#63caff;
-    font-size:13px;
-    letter-spacing:4px;
-    font-weight:bold;
-    margin-bottom:8px;
+  color:#9dbbff;
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  font-weight:bold;
+  letter-spacing:4px;
+  margin-bottom:10px;
 }
 
-.dialogue{
-    font-family:Arial,sans-serif;
-    font-size:15px;
-    line-height:1.65;
-    min-height:80px;
+.text{
+  font-size:20px;
+  line-height:1.45;
+  min-height:60px;
 }
 
-button{
-    margin-top:15px;
-    padding:11px 25px;
-    border-radius:25px;
-    border:1px solid #4e8ed0;
-    background:#17294b;
-    color:white;
-    cursor:pointer;
-    font-weight:bold;
-    transition:.25s;
+.next{
+  position:absolute;
+  right:18px;
+  bottom:15px;
+  border:none;
+  background:#eeeaff;
+  color:#111;
+  padding:10px 20px;
+  border-radius:25px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-button:hover{
-    background:#244579;
-    transform:scale(1.03);
+.next:hover{
+  transform:scale(1.05);
 }
 
-/* =========================
-   FINAL
-========================= */
+/* CAPÍTULO */
 
-.final{
-    text-align:center;
-    padding:50px 20px;
+.chapter{
+  position:absolute;
+  z-index:30;
+  top:20px;
+  left:20px;
+  font-family:Arial,sans-serif;
+  font-size:11px;
+  letter-spacing:3px;
+  color:#d3ceff;
 }
 
-.final h2{
-    letter-spacing:7px;
-    font-weight:normal;
+/* INTRO */
+
+.intro{
+  position:absolute;
+  z-index:100;
+  inset:0;
+  background:
+    radial-gradient(circle,#272540,#07070d 70%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
 
-.final p{
-    color:#aaa;
-    font-family:Arial,sans-serif;
+.intro h1{
+  font-size:clamp(45px,10vw,90px);
+  letter-spacing:12px;
+  line-height:.9;
+  margin:20px;
 }
 
-/* Móvil */
+.intro p{
+  color:#aaa;
+  font-family:Arial,sans-serif;
+  letter-spacing:2px;
+}
 
-@media(max-width:650px){
+.start{
+  margin-top:25px;
+  padding:15px 35px;
+  border:0;
+  border-radius:30px;
+  background:#eeeaff;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .scene{
-        height:470px;
-    }
+/* TRANSICIÓN */
 
-    .character{
-        transform:translateX(-50%) scale(.82);
-        transform-origin:bottom center;
-    }
+.transition{
+  position:absolute;
+  z-index:50;
+  inset:0;
+  background:#fff;
+  pointer-events:none;
+  opacity:0;
+}
 
-    .dialogueBox{
-        margin-top:8px;
-    }
+.transition.flash{
+  animation:flash .45s;
+}
 
-    .dialogue{
-        font-size:14px;
-    }
+@keyframes flash{
+  0%{opacity:0}
+  35%{opacity:.35}
+  100%{opacity:0}
+}
 
-    .moon{
-        width:70px;
-        height:70px;
-    }
+/* MÓVIL */
+
+@media(max-width:600px){
+
+  .character{
+    width:130px;
+    height:350px;
+  }
+
+  .gem{
+    width:105px;
+    height:120px;
+    left:13px;
+  }
+
+  .body{
+    width:70px;
+    height:145px;
+    left:30px;
+  }
+
+  .eye{
+    top:61px;
+    width:12px;
+    height:16px;
+  }
+
+  .eye.left{left:47px}
+  .eye.right{left:78px}
+
+  .mouth{
+    top:87px;
+    left:63px;
+  }
+
+  .arm{
+    height:90px;
+    bottom:85px;
+  }
+
+  .arm.left{left:17px}
+  .arm.right{right:16px}
+
+  .leg{
+    height:55px;
+  }
+
+  .leg.left{left:42px}
+  .leg.right{left:72px}
+
+  .text{
+    font-size:16px;
+  }
+
+  .dialogue{
+    bottom:12px;
+    padding:15px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
+<div id="game">
 
-<div class="stars" id="stars"></div>
+  <div id="stars"></div>
 
-<header class="header">
-    <h1>LA IMPOSTORA</h1>
-    <p>TEMPORADA 1 · EL SECRETO DEL CRISTAL</p>
-</header>
+  <div class="intro" id="intro">
 
-<div class="scene">
+    <div>
 
-    <div class="moon"></div>
+      <div style="
+        font-family:Arial;
+        font-size:11px;
+        letter-spacing:5px;
+        color:#aaa;">
+        UNA FRUTINOVELA
+      </div>
 
-    <div class="room">
-        <div class="window"></div>
+      <h1>
+        LA<br>
+        IMPOSTORA
+      </h1>
+
+      <p>
+        En una familia donde todos deben brillar,<br>
+        alguien decidió desaparecer.
+      </p>
+
+      <button class="start" onclick="startEpisode()">
+        ▶ COMENZAR
+      </button>
+
     </div>
 
-    <div id="character" class="character zafiro">
-        <div class="aura"></div>
+  </div>
 
-        <div class="head">
-            <div class="eye left"></div>
-            <div class="eye right"></div>
-            <div class="mouth"></div>
-        </div>
 
-        <div class="arm left"></div>
-        <div class="arm right"></div>
+  <div class="scene">
 
-        <div class="body"></div>
+    <div class="wall"></div>
+    <div class="floor"></div>
 
-        <div class="leg left"></div>
-        <div class="leg right"></div>
-
-        <div class="characterName" id="charName">
-            ZAFIRO
-        </div>
+    <div class="window">
+      <div class="rain"></div>
     </div>
-
-</div>
-
-<div class="dialogueBox">
 
     <div class="chapter" id="chapter">
-        CAPÍTULO 1 · LA FUGA
+      CAPÍTULO 1 · LA FUGA
     </div>
 
-    <div class="speaker" id="speaker">
-        ZAFIRO
+
+    <div id="zafiro" class="character zafiro hidden">
+      <div class="gem"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+
+      <div class="body"></div>
+
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+
+      <div class="name">ZAFIRO</div>
     </div>
 
-    <div class="dialogue" id="dialogue">
-        En mi familia siempre fue así...
-        si no brillas, no vales.
-        <br><br>
-        Mi hermana Diamante era la que más brillaba.
+
+    <div id="rubi" class="character rubi hidden">
+      <div class="gem"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+
+      <div class="body"></div>
+
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+
+      <div class="name">RUBÍ</div>
     </div>
 
-    <button onclick="nextScene()" id="next">
+
+    <div id="diamante" class="character diamante hidden">
+      <div class="gem"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+
+      <div class="body"></div>
+
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+
+      <div class="name">DIAMANTE</div>
+    </div>
+
+
+    <div id="onix" class="character onix hidden">
+      <div class="gem"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+
+      <div class="body"></div>
+
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+
+      <div class="name">ÓNIX</div>
+    </div>
+
+
+    <div id="cuarzo" class="character cuarzo hidden">
+      <div class="gem"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+
+      <div class="body"></div>
+
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+
+      <div class="name">CUARZO</div>
+    </div>
+
+
+    <div class="dialogue">
+
+      <div class="speaker" id="speaker">
+        DIAMANTE
+      </div>
+
+      <div class="text" id="dialogueText">
+      </div>
+
+      <button class="next" onclick="nextScene()">
         SIGUIENTE →
-    </button>
+      </button>
+
+    </div>
+
+  </div>
+
+  <div id="transition" class="transition"></div>
 
 </div>
+
 
 <script>
 
-/* ==========================================
+/* =========================================
    ESTRELLAS
-========================================== */
-
-const stars = document.getElementById("stars");
+========================================= */
 
 for(let i=0;i<70;i++){
 
-    const star=document.createElement("div");
+  const star=document.createElement("div");
 
-    star.className="star";
+  star.className="star";
 
-    star.style.left=Math.random()*100+"%";
-    star.style.top=Math.random()*100+"%";
+  star.style.left=Math.random()*100+"%";
+  star.style.top=Math.random()*70+"%";
 
-    star.style.animationDelay=(Math.random()*3)+"s";
+  star.style.animationDelay=Math.random()*2+"s";
 
-    stars.appendChild(star);
+  document.getElementById("stars").appendChild(star);
 }
 
 
-/* ==========================================
-   HISTORIA COMPLETA
-========================================== */
+/* =========================================
+   HISTORIA
+========================================= */
 
-const story = [
-
-/* CAPÍTULO 1 */
+const scenes=[
 
 {
-chapter:"CAPÍTULO 1 · LA FUGA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`En mi familia siempre fue así...
-si no brillas, no vales.
-<br><br>
-Mi hermana Diamante era la que más brillaba.
-Todos la admiraban. Todos querían ser como ella.`
+ character:"diamante",
+ name:"DIAMANTE",
+ text:"No puedo seguir viviendo así... Si me quedo, voy a desaparecer poco a poco.",
+ emotion:"gesture"
 },
 
 {
-chapter:"CAPÍTULO 1 · LA FUGA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Pero anoche pasó algo extraño.
-<br><br>
-Diamante vino a mi habitación.
-No llevaba su sonrisa de siempre.
-<br><br>
-Solo me miró y dijo:
-<br><br>
-<i>"Zafiro... ya no puedo más."</i>`,
-gesture:true
+ character:"diamante",
+ name:"DIAMANTE",
+ text:"Si descubren lo que encontré, no me van a dejar ir.",
+ emotion:"gesture"
 },
 
 {
-chapter:"CAPÍTULO 1 · LA FUGA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`A la mañana siguiente...
-su habitación estaba vacía.
-<br><br>
-Todos dijeron que necesitaba alejarse.
-<br><br>
-Pero yo sabía que algo no estaba bien.`
+ character:"zafiro",
+ name:"ZAFIRO",
+ text:"¿Diamante? ... ¿Dónde está?",
+ emotion:"normal"
 },
 
 {
-chapter:"CAPÍTULO 1 · LA FUGA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Encontré una fotografía escondida.
-Diamante aparecía junto a una persona
-que ninguno de nosotros conocía.
-<br><br>
-Y detrás decía:
-<br><br>
-<b>"No busques dónde está Diamante.
-Busca por qué tuvo que irse."</b>`
-},
-
-/* CAPÍTULO 2 */
-
-{
-chapter:"CAPÍTULO 2 · LA SOSPECHA",
-speaker:"RUBÍ",
-character:"rubi",
-text:`¿Y si no se fue?
-<br><br>
-¿Y si alguien la obligó?
-<br><br>
-Zafiro, sé que te gustan los dramas...
-pero esta vez hay algo raro.`,
-gesture:true
-},
-
-{
-chapter:"CAPÍTULO 2 · LA SOSPECHA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Entonces decime la verdad.
-<br><br>
-¿Qué pasó esa noche?`
-},
-
-{
-chapter:"CAPÍTULO 2 · LA SOSPECHA",
-speaker:"RUBÍ",
-character:"rubi",
-text:`La vi llorando.
-<br><br>
-Me dijo que había descubierto algo sobre nuestra familia.
-Después alguien llegó.
-<br><br>
-Y Diamante dejó de hablar.`
-},
-
-{
-chapter:"CAPÍTULO 2 · LA SOSPECHA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`¿Quién llegó?`
-},
-
-{
-chapter:"CAPÍTULO 2 · LA SOSPECHA",
-speaker:"RUBÍ",
-character:"rubi",
-text:`No lo sé.
-Me fui antes de descubrirlo.
-<br><br>
-Pero encontré algo después.
-Una llamada eliminada.
-<br><br>
-00:17.`
-},
-
-/* CAPÍTULO 3 */
-
-{
-chapter:"CAPÍTULO 3 · LA REINA",
-speaker:"DIAMANTE",
-character:"diamante",
-text:`No huyo por cobarde.
-<br><br>
-Huyo porque si me quedo...
-me voy a apagar para siempre.`
-},
-
-{
-chapter:"CAPÍTULO 3 · LA REINA",
-speaker:"DIAMANTE",
-character:"diamante",
-text:`Toda mi vida decidieron quién debía ser.
-<br><br>
-La hija perfecta.
-La heredera.
-La que nunca se equivoca.
-<br><br>
-Pero yo no quiero ser una corona.
-<br><br>
-<b>Quiero ser una persona.</b>`
-},
-
-{
-chapter:"CAPÍTULO 3 · LA REINA",
-speaker:"CUARZO",
-character:"cuarzo",
-text:`Yo la vi llorar.
-<br><br>
-Diamante no es de hielo.
-Solo aprendió a ponerse una armadura.`
-},
-
-/* CAPÍTULO 4 */
-
-{
-chapter:"CAPÍTULO 4 · EL SECRETO DE RUBÍ",
-speaker:"RUBÍ",
-character:"rubi",
-text:`Está bien.
-Te voy a contar lo que vi.
-<br><br>
-Diamante me dijo que había encontrado documentos
-que demostraban que nuestra familia había mentido durante años.`,
-gesture:true
-},
-
-{
-chapter:"CAPÍTULO 4 · EL SECRETO DE RUBÍ",
-speaker:"RUBÍ",
-character:"rubi",
-text:`Después escuchamos pasos.
-<br><br>
-Diamante me dijo:
-<br><br>
-<i>"Si me pasa algo, no confíes en nadie."</i>`
-},
-
-{
-chapter:"CAPÍTULO 4 · EL SECRETO DE RUBÍ",
-speaker:"RUBÍ",
-character:"rubi",
-text:`Antes de irme...
-me dio esto.`
-},
-
-{
-chapter:"CAPÍTULO 4 · EL SECRETO DE RUBÍ",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Una llave...
-<br><br>
-¿De qué abre?`
-},
-
-/* CAPÍTULO 5 */
-
-{
-chapter:"CAPÍTULO 5 · LA HABITACIÓN PROHIBIDA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`La llave abrió una puerta que nunca había visto.
-<br><br>
-Había cajas.
-Fotografías.
-Documentos.
-<br><br>
-Y todos tenían el mismo símbolo.`
-},
-
-{
-chapter:"CAPÍTULO 5 · LA HABITACIÓN PROHIBIDA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Encontré fotografías de generaciones enteras.
-<br><br>
-Algunas personas aparecían...
-y después desaparecían de todas las fotografías.
-<br><br>
-Como si nunca hubieran existido.`
-},
-
-{
-chapter:"CAPÍTULO 5 · LA HABITACIÓN PROHIBIDA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Entonces encontré una fotografía diferente.
-<br><br>
-Detrás decía:
-<br><br>
-<b>"Ella fue la primera impostora."</b>`
-},
-
-/* CAPÍTULO 6 */
-
-{
-chapter:"CAPÍTULO 6 · LA IMPOSTORA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Había documentos sobre cambios de identidad.
-<br><br>
-Nombres modificados.
-Fechas alteradas.
-Personas reemplazadas.
-<br><br>
-Todo para proteger la herencia.`
-},
-
-{
-chapter:"CAPÍTULO 6 · LA IMPOSTORA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Entonces encontré una carpeta con mi nombre.
-<br><br>
-"Zafiro".
-<br><br>
-Mi fecha de nacimiento.
-<br><br>
-Y debajo...
-<br><br>
-<b>"Identidad confirmada."</b>`
-},
-
-{
-chapter:"CAPÍTULO 6 · LA IMPOSTORA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`¿Por qué existe un archivo sobre mí?
-<br><br>
-¿Qué es lo que mi familia no quiere que sepa?`
-},
-
-/* CAPÍTULO 7 */
-
-{
-chapter:"CAPÍTULO 7 · LA VERDAD DE ÓNIX",
-speaker:"ÓNIX",
-character:"onix",
-text:`Dejá de investigar, Zafiro.
-<br><br>
-No sabés con qué estás jugando.`,
-gesture:true
-},
-
-{
-chapter:"CAPÍTULO 7 · LA VERDAD DE ÓNIX",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Entonces vos sí sabés algo.
-<br><br>
-¿Por qué protegés a esta familia?`
-},
-
-{
-chapter:"CAPÍTULO 7 · LA VERDAD DE ÓNIX",
-speaker:"ÓNIX",
-character:"onix",
-text:`No la estoy protegiendo.
-<br><br>
-Estoy intentando evitar que termines como mi madre.`
-},
-
-{
-chapter:"CAPÍTULO 7 · LA VERDAD DE ÓNIX",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`¿Qué le pasó?`
-},
-
-{
-chapter:"CAPÍTULO 7 · LA VERDAD DE ÓNIX",
-speaker:"ÓNIX",
-character:"onix",
-text:`Desapareció después de investigar los mismos documentos.
-<br><br>
-Y antes de desaparecer me dijo algo:
-<br><br>
-<i>"Zafiro no es quien ellos creen."</i>`
-},
-
-/* CAPÍTULO 8 */
-
-{
-chapter:"CAPÍTULO 8 · LA NOCHE DEL CRISTAL",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Encontré una grabación antigua.
-<br><br>
-Una mujer hablaba sobre una noche
-que la familia había jurado olvidar.
-<br><br>
-La llamaban...
-<b>La Noche del Cristal.</b>`
-},
-
-{
-chapter:"CAPÍTULO 8 · LA NOCHE DEL CRISTAL",
-speaker:"DIAMANTE",
-character:"diamante",
-text:`Hace años alguien descubrió la verdad.
-<br><br>
-Intentó contarla.
-<br><br>
-Y desapareció.
-<br><br>
-Desde entonces todos tienen miedo
-de que la historia vuelva a repetirse.`
-},
-
-{
-chapter:"CAPÍTULO 8 · LA NOCHE DEL CRISTAL",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Reconocí esa voz.
-<br><br>
-No podía ser.
-<br><br>
-Esa persona...
-todavía estaba viva.`
-},
-
-/* CAPÍTULO 9 */
-
-{
-chapter:"CAPÍTULO 9 · DIAMANTE",
-speaker:"DIAMANTE",
-character:"diamante",
-text:`Zafiro...
-si estás viendo esto,
-significa que ya descubrieron quién sos.`
-},
-
-{
-chapter:"CAPÍTULO 9 · DIAMANTE",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`¡Diamante!
-<br><br>
-¿Dónde estás?
-<br><br>
-¡Volvé a casa!`
-},
-
-{
-chapter:"CAPÍTULO 9 · DIAMANTE",
-speaker:"DIAMANTE",
-character:"diamante",
-text:`No puedo volver todavía.
-<br><br>
-Encontré quién está manipulando todo.
-<br><br>
-Y si regreso...
-te van a poner en peligro a vos también.`
-},
-
-/* CAPÍTULO 10 */
-
-{
-chapter:"CAPÍTULO 10 · LA VERDADERA HERENCIA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`La herencia no era solamente dinero.
-<br><br>
-Era un archivo.
-<br><br>
-Un archivo que contenía todas las identidades
-que la familia había cambiado durante generaciones.`
-},
-
-{
-chapter:"CAPÍTULO 10 · LA VERDADERA HERENCIA",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Encontré mi archivo.
-<br><br>
-Pero faltaba una página.
-<br><br>
-Solo quedaba una frase:
-<br><br>
-<b>"La verdadera heredera no es Diamante."</b>`
-},
-
-/* CAPÍTULO 11 */
-
-{
-chapter:"CAPÍTULO 11 · LA ELECCIÓN",
-speaker:"DIAMANTE",
-character:"diamante",
-text:`Volví porque ya no quiero huir.
-<br><br>
-Pero tampoco voy a convertirme en lo que ellos quieren.`
-},
-
-{
-chapter:"CAPÍTULO 11 · LA ELECCIÓN",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Entonces lo hacemos juntas.
-<br><br>
-Esta vez nadie va a decidir quiénes somos.`
-},
-
-{
-chapter:"CAPÍTULO 11 · LA ELECCIÓN",
-speaker:"RUBÍ",
-character:"rubi",
-text:`Yo también voy a hablar.
-<br><br>
-Estoy cansada de proteger secretos
-que nunca fueron nuestros.`
-},
-
-{
-chapter:"CAPÍTULO 11 · LA ELECCIÓN",
-speaker:"CUARZO",
-character:"cuarzo",
-text:`Y yo no pienso dejar que vuelvan a silenciar a nadie.`
-},
-
-{
-chapter:"CAPÍTULO 11 · LA ELECCIÓN",
-speaker:"ÓNIX",
-character:"onix",
-text:`Entonces llegó el momento.
-<br><br>
-La verdad sale a la luz.`
-},
-
-/* CAPÍTULO 12 */
-
-{
-chapter:"CAPÍTULO 12 · EL CRISTAL ROTO",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`La verdad finalmente salió.
-<br><br>
-Diamante rechazó el lugar que le habían impuesto.
-<br><br>
-Rubí dejó de guardar silencio.
-<br><br>
-Ónix contó lo que ocurrió con su madre.
-<br><br>
-Y Cuarzo se quedó junto a Diamante.`
-},
-
-{
-chapter:"CAPÍTULO 12 · EL CRISTAL ROTO",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Yo también rechacé la identidad que habían construido para mí.
-<br><br>
-Por primera vez...
-no tenía que demostrarle nada a nadie.`
-},
-
-{
-chapter:"CAPÍTULO 12 · EL CRISTAL ROTO",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Pensé que todo había terminado.
-<br><br>
-Hasta que encontré una última fotografía.`
-},
-
-{
-chapter:"CAPÍTULO 12 · EL CRISTAL ROTO",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Era una fotografía mía.
-<br><br>
-Pero había algo imposible.
-<br><br>
-Yo aparecía en ella...
-<b>antes de haber nacido.</b>`
-},
-
-{
-chapter:"CAPÍTULO 12 · EL CRISTAL ROTO",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Le di la vuelta.
-<br><br>
-Y había una última frase:
-<br><br>
-<b>"La primera impostora no fue Diamante."</b>`
-},
-
-{
-chapter:"FIN DE TEMPORADA 1",
-speaker:"ZAFIRO",
-character:"zafiro",
-text:`Continuará...`
+ character:"zafiro",
+ name:"ZAFIRO",
+ text:"Todos dicen que se fue. Entonces... ¿por qué siento que alguien quería que desapareciera?",
+ emotion:"gesture"
 }
 
 ];
 
 
-/* ==========================================
-   VARIABLES
-========================================== */
+/* =========================================
+   POSICIONES
+========================================= */
 
-let current = 0;
+const positions={
 
-const character = document.getElementById("character");
-const chapter = document.getElementById("chapter");
-const speaker = document.getElementById("speaker");
-const dialogue = document.getElementById("dialogue");
-const charName = document.getElementById("charName");
-const button = document.getElementById("next");
+  zafiro:"30%",
+  rubi:"45%",
+  diamante:"45%",
+  onix:"60%",
+  cuarzo:"55%"
+
+};
 
 
-/* ==========================================
-   MOSTRAR ESCENA
-========================================== */
+/* =========================================
+   VOZ
+========================================= */
 
-function showScene(){
+function speak(text){
 
-    const scene = story[current];
+  if(!("speechSynthesis" in window))
+    return;
 
-    chapter.textContent = scene.chapter;
-    speaker.textContent = scene.speaker;
-    dialogue.innerHTML = scene.text;
+  speechSynthesis.cancel();
 
-    character.className =
-        "character " + scene.character;
+  const voice=new SpeechSynthesisUtterance(text);
 
-    if(scene.gesture){
-        character.classList.add("gesture");
-    }
+  voice.lang="es-ES";
 
-    character.classList.add("talking");
+  voice.rate=.88;
 
-    charName.textContent = scene.speaker;
+  voice.pitch=1.05;
 
-    /* Pequeño movimiento según personaje */
-
-    const positions = {
-        zafiro:"50%",
-        rubi:"37%",
-        diamante:"50%",
-        onix:"63%",
-        cuarzo:"50%"
-    };
-
-    character.style.left =
-        positions[scene.character] || "50%";
-
-    /* Parpadeo */
-
-    setTimeout(()=>{
-        character.classList.add("blink");
-
-        setTimeout(()=>{
-            character.classList.remove("blink");
-        },180);
-
-    },700);
-
-    if(current === story.length-1){
-
-        button.textContent="VOLVER AL INICIO";
-
-    }else{
-
-        button.textContent="SIGUIENTE →";
-
-    }
+  speechSynthesis.speak(voice);
 }
 
 
-/* ==========================================
-   SIGUIENTE
-========================================== */
+/* =========================================
+   ESCENA
+========================================= */
+
+let sceneIndex=-1;
+
+
+function hideCharacters(){
+
+  document
+    .querySelectorAll(".character")
+    .forEach(c=>{
+
+      c.classList.add("hidden");
+      c.classList.remove("talking");
+      c.classList.remove("gesture");
+
+    });
+
+}
+
+
+function showCharacter(id){
+
+  const character=document.getElementById(id);
+
+  character.classList.remove("hidden");
+
+  character.style.left=positions[id];
+
+}
+
 
 function nextScene(){
 
-    current++;
+  sceneIndex++;
 
-    if(current >= story.length){
-        current = 0;
-    }
+  if(sceneIndex>=scenes.length){
 
-    showScene();
+    sceneIndex=0;
+
+  }
+
+  const scene=scenes[sceneIndex];
+
+  hideCharacters();
+
+  showCharacter(scene.character);
+
+  const character=document.getElementById(scene.character);
+
+  character.classList.add("talking");
+
+  if(scene.emotion==="gesture"){
+
+    character.classList.add("gesture");
+
+  }
+
+  document.getElementById("speaker").textContent=
+    scene.name;
+
+  document.getElementById("dialogueText").textContent=
+    scene.text;
+
+  document.getElementById("chapter").textContent=
+    "CAPÍTULO 1 · LA FUGA";
+
+  const flash=document.getElementById("transition");
+
+  flash.classList.remove("flash");
+
+  void flash.offsetWidth;
+
+  flash.classList.add("flash");
+
+  speak(scene.text);
+
 }
 
 
-/* ==========================================
-   INICIAR
-========================================== */
+/* =========================================
+   COMENZAR
+========================================= */
 
-showScene();
+function startEpisode(){
+
+  document.getElementById("intro").style.display="none";
+
+  nextScene();
+
+}
+
+
+/* =========================================
+   TECLA / PANTALLA
+========================================= */
+
+document.addEventListener("keydown",e=>{
+
+  if(
+    e.key==="Enter" ||
+    e.key===" " ||
+    e.key==="ArrowRight"
+  ){
+
+    nextScene();
+
+  }
+
+});
 
 </script>
 
 </body>
-</html>
+    </html>
