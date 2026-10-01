@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA CASA DE LAS PIEDRAS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap');
+body{margin:0;background:#050508;color:white;font-family:'Inter',sans-serif}
+.chapter{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px 20px;text-align:center;border-bottom:1px solid #222}
+.gem{font-size:90px;filter:drop-shadow(0 0 30px currentColor);animation:float 3s infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+h1{font-family:'Cinzel',serif;font-size:2.2em;letter-spacing:3px;margin:10px 0}
+.box{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:25px;max-width:540px;margin-top:20px;line-height:1.7;font-size:1.1em;backdrop-filter:blur(10px)}
+.name{font-weight:800;letter-spacing:2px;font-size:0.8em;display:block;margin-bottom:8px}
+.label{position:fixed;top:0;left:0;height:5px;background:linear-gradient(90deg,#a0a0ff,#ff6b9d);width:0%;z-index:1000;transition:width .3s}
+.btn{position:fixed;bottom:20px;right:20px;background:white;color:black;border:none;padding:14px 20px;border-radius:50px;font-weight:800;cursor:pointer;z-index:1000}
+.cap{position:absolute;top:20px;left:20px;background:white;color:black;padding:5px 12px;border-radius:20px;font-size:0.7em;font-weight:800}
+.season{padding:30px;background:#ff6b9d;text-align:center;font-family:'Cinzel';letter-spacing:4px}
+</style>
+</head>
+<body>
+<div class="label" id="bar"></div>
+<button class="btn" onclick="document.getElementById('cap'+(cur+1>16?1:cur+1)).scrollIntoView({behavior:'smooth'})">SIGUIENTE ➜</button>
+
+<div class="season">TEMPORADA 1 - LA IMPOSTORA</div>
+
+<div class="chapter" id="cap1" style="position:relative;background:radial-gradient(circle,#151a2e,#050508)"><span class="cap">CAP 1/16</span><div class="gem" style="color:#6bb5ff">🔵</div><h1>LA FUGA</h1><div class="box"><span class="name" style="color:#6bb5ff">ZAFIRO</span>En mi familia si no brillas no vales. Mi hermana Diamante era la que más brillaba. Anoche dijo "Ya no puedo más". A la mañana su caja estaba vacía. Todos creen que está enferma. Mentira. Ella huyó.</div></div>
+
+<div class="chapter" id="cap2" style="position:relative;background:radial-gradient(circle,#2e1515,#050508)"><span class="cap">CAP 2/16</span><div class="gem" style="color:#ff2a5a">🔴</div><div class="box"><span class="name" style="color:#ff2a5a">RUBÍ</span>Si papá se entera que Diamante se fue perdemos la mina. Solo necesito una semana.<br><br><span class="name" style="color:#a0a0ff">ÓNIX</span>Puedo crear otra Diamante. Pero quiero la mitad de la mina.</div></div>
+
+<div class="chapter" id="cap3" style="position:relative;background:radial-gradient(circle,#2e1525,#050508)"><span class="cap">CAP 3/16</span><div class="gem" style="color:#ffb6d9">💗</div><div class="box"><span class="name" style="color:#ffb6d9">CUARZO</span>¿Yo puedo ser Diamante? Siempre fui invisible...<br><br><span class="name" style="color:#a0a0ff">ÓNIX</span>Te voy a pulir. Vas a ser perfecta. Solo obedece.</div></div>
+
+<div class="chapter" id="cap4" style="position:relative;background:radial-gradient(circle,#152e2e,#050508)"><span class="cap">CAP 4/16</span><div class="gem" style="color:#6bb5ff">🔵</div><div class="box"><span class="name" style="color:#6bb5ff">ZAFIRO</span>Esa no es mi hermana. No brilla igual. Mi hermana nunca temblaba cuando mentía. Esta tiene miedo.</div></div>
+
+<div class="chapter" id="cap5" style="position:relative;background:radial-gradient(circle,#1a1a2e,#050508)"><span class="cap">CAP 5/16</span><div class="gem" style="color:#a0a0ff">⚫</div><div class="box"><span class="name" style="color:white">PAPÁ</span>Mañana es la Ceremonia de la Luz. Solo la verdadera Diamante puede encender la mina. Si falla sabré que nos engañaron.</div></div>
+
+<div class="chapter" id="cap6" style="position:relative;background:radial-gradient(circle,#2e1a2e,#050508)"><span class="cap">CAP 6/16</span><div class="gem" style="color:#d0f0ff">💎</div><h1>¿DÓNDE ESTÁ?</h1><div class="box"><span class="name" style="color:#d0f0ff">DIAMANTE - LEJOS</span>Me fui para ser libre. Pero si mi familia me necesita volveré. Y alguien dejará de brillar para siempre.</div></div>
+
+<div class="season">TEMPORADA 2 - DOS DIAMANTES</div>
+
+<div class="chapter" id="cap7" style="position:relative;background:radial-gradient(circle,#1a2e2e,#050508)"><span class="cap">CAP 7/16</span><div class="gem" style="color:#d0f0ff">💎</div><div class="box"><span class="name" style="color:#d0f0ff">DIAMANTE</span>Volví. Estuve en la vieja cantera aprendiendo a brillar por mí. Pero ahora hay otra con mi cara en mi casa.</div></div>
+
+<div class="chapter" id="cap8" style="position:relative;background:radial-gradient(circle,#2e2e15,#050508)"><span class="cap">CAP 8/16</span><div class="gem" style="color:#ffb6d9">💗</div><div class="box"><span class="name" style="color:#ffb6d9">CUARZO</span>¡Tú eres la real! Yo no quería esto me obligaron.<br><br><span class="name" style="color:#d0f0ff">DIAMANTE</span>Tranquila. No eres mi enemiga. Ellas sí.</div></div>
+
+<div class="chapter" id="cap9" style="position:relative;background:radial-gradient(circle,#2e1515,#050508)"><span class="cap">CAP 9/16</span><div class="gem" style="color:#ff2a5a">🔴</div><div class="box"><span class="name" style="color:#ff2a5a">RUBÍ</span>¡No puede haber dos Diamantes!<br><br><span class="name" style="color:#a0a0ff">ÓNIX</span>Entonces haremos que una desaparezca.</div></div>
+
+<div class="chapter" id="cap10" style="position:relative;background:radial-gradient(circle,#152e1a,#050508)"><span class="cap">CAP 10/16</span><div class="gem" style="color:#6bb5ff">🔵</div><div class="box"><span class="name" style="color:#6bb5ff">ZAFIRO</span>¡Hermana! Sabía que volverías. Tengo un plan: en la ceremonia haré que las dos entren al mismo tiempo. Que papá vea la verdad.</div></div>
+
+<div class="chapter" id="cap11" style="position:relative;background:radial-gradient(circle,#1a1a3a,#050508)"><span class="cap">CAP 11/16</span><div class="gem" style="color:#d0f0ff">💎</div><div class="box"><span class="name" style="color:white">PAPÁ</span>¡Qué significa esto! ¡Dos Diamantes!<br><br><span class="name" style="color:#d0f0ff">DIAMANTE REAL</span>Papá yo soy tu hija. Que haga la prueba de luz. Solo yo puedo encender la mina.</div></div>
+
+<div class="chapter" id="cap12" style="position:relative;background:radial-gradient(circle,#000,#050508)"><span class="cap">CAP 12/16</span><div class="gem" style="color:#ffb6d9">💗</div><div class="box"><span class="name" style="color:#ffb6d9">CUARZO</span>Yo no puedo. No brillo. ¡Perdón!<br><br><span class="name" style="color:#d0f0ff">DIAMANTE REAL</span>***LA MINA SE ENCIENDE***</div></div>
+
+<div class="season">TEMPORADA 3 - EL FINAL</div>
+
+<div class="chapter" id="cap13" style="position:relative;background:radial-gradient(circle,#2e1515,#050508)"><span class="cap">CAP 13/16</span><div class="gem" style="color:#ff2a5a">🔴</div><div class="box"><span class="name" style="color:#ff2a5a">RUBÍ</span>Papá yo solo quería proteger la familia...<br><br><span class="name" style="color:white">PAPÁ</span>Por tu envidia casi destruyes nuestro legado. Limpiarás la mina por un año.</div></div>
+
+<div class="chapter" id="cap14" style="position:relative;background:radial-gradient(circle,#1a0a2e,#050508)"><span class="cap">CAP 14/16</span><div class="gem" style="color:#a0a0ff">⚫</div><div class="box"><span class="name" style="color:#a0a0ff">ÓNIX</span>¡Ustedes me necesitan!<br><br><span class="name" style="color:white">PAPÁ</span>Llévenla a la cantera profunda. Que pique piedra.</div></div>
+
+<div class="chapter" id="cap15" style="position:relative;background:radial-gradient(circle,#2e1a25,#050508)"><span class="cap">CAP 15/16</span><div class="gem" style="color:#d0f0ff">💎</div><div class="box"><span class="name" style="color:#d0f0ff">DIAMANTE</span>Tú no hiciste nada malo Cuarzo. ¿Quieres ser mi hermana? No de sangre, de brillo.<br><br><span class="name" style="color:#ffb6d9">CUARZO</span>¿De verdad?</div></div>
+
+<div class="chapter" id="cap16" style="position:relative;background:radial-gradient(circle,#1a2e3a,#050508)"><span class="cap">CAP 16/16</span><div class="gem" style="color:#6bb5ff">🔵</div><h1>AHORA BRILLAMOS TODAS</h1><div class="box"><span class="name" style="color:#6bb5ff">ZAFIRO</span>Y así la Casa de las Piedras aprendió que no se trata de ser la que más brilla sino de brillar juntas. FIN.</div></div>
+
+<script>
+let cur=1;
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      cur=parseInt(e.target.id.replace('cap',''));
+      document.getElementById('bar').style.width=(cur/16*100)+'%';
+    }
+  });
+},{threshold:0.6});
+document.querySelectorAll('.chapter').forEach(c=>obs.observe(c));
+</script>
+</body>
+  </html>
